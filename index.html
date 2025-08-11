@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Langu - Sustainable Farming & Fresh Products</title>
+    <meta name="description" content="Farm Langu offers fresh, organic produce and sustainable farming practices. Learn about our farming methods and shop our seasonal products.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Basic CSS styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo h1 {
+            color: #2e7d32;
+            font-size: 2rem;
+        }
+        
+        .logo p {
+            color: #689f38;
+            font-size: 1rem;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 20px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #2e7d32;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: #2e7d32;
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #fff;
+            color: #2e7d32;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #f1f8e9;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #2e7d32;
+        }
+        
+        /* Featured Products */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #aed581;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        
+        .btn-small {
+            display: inline-block;
+            background-color: #689f38;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-small:hover {
+            background-color: #558b2f;
+        }
+        
+        /* About Preview */
+        .about-preview {
+            background-color: #f1f8e9;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-image {
+            height: 300px;
+            background-color: #81c784;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        
+        /* Seasonal Calendar */
+        .calendar-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .season {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .season h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #689f38;
+            padding-bottom: 10px;
+        }
+        
+        .season h3 span {
+            font-size: 0.8rem;
+            color: #689f38;
+        }
+        
+        .season ul {
+            list-style-position: inside;
+        }
+        
+        .season li {
+            margin-bottom: 8px;
+        }
+        
+        /* Blog Preview */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .blog-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .blog-image {
+            height: 200px;
+            background-color: #66bb6a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .blog-content {
+            padding: 20px;
+        }
+        
+        .blog-content h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        
+        .blog-date {
+            color: #689f38;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #2e7d32;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: color 0.3s;
+        }
+        
+        .read-more:hover {
+            color: #1b5e20;
+        }
+        
+        .center-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background-color: #2e7d32;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form .btn {
+            border-radius: 0 4px 4px 0;
+            background-color: #1b5e20;
+            color: white;
+        }
+        
+        .newsletter-form .btn:hover {
+            background-color: #003d00;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            color: #aed581;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #444;
+            color: #fff;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: #2e7d32;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul a:hover {
+            color: #aed581;
+        }
+        
+        .footer-section p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-section i {
+            margin-right: 10px;
+            color: #aed581;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: #fff;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                padding: 20px 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form .btn {
+                border-radius: 4px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Farm Langu</h1>
+                <p>Fresh From Our Fields</p>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#calendar">Farming Calendar</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Our Farm</h2>
+            <p>Sustainable farming for a healthier tomorrow</p>
+            <a href="#products" class="btn">Explore Our Products</a>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products" id="products">
+        <div class="container">
+            <h2 class="section-title">Our Seasonal Favorites</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        Vegetables Image
+                    </div>
+                    <div class="product-info">
+                        <h3>Organic Vegetables</h3>
+                        <p>Freshly harvested, pesticide-free vegetables grown with care.</p>
+                        <a href="#" class="btn-small">Learn More</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-color: #ffb74d;">
+                        Fruits Image
+                    </div>
+                    <div class="product-info">
+                        <h3>Seasonal Fruits</h3>
+                        <p>Sweet and juicy fruits picked at the peak of ripeness.</p>
+                        <a href="#" class="btn-small">Learn More</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-color: #fff176; color: #333;">
+                        Eggs Image
+                    </div>
+                    <div class="product-info">
+                        <h3>Farm Fresh Eggs</h3>
+                        <p>Free-range eggs from our happy, healthy chickens.</p>
+                        <a href="#" class="btn-small">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Farm Section -->
+    <section class="about-preview" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Our Farming Story</h2>
+                    <p>At Farm Langu, we believe in sustainable farming practices that respect the land and produce the healthiest food possible. Our family has been farming this land for three generations, combining traditional wisdom with modern sustainable techniques.</p>
+                    <p>We grow a variety of seasonal crops, raise free-range livestock, and maintain a healthy ecosystem on our farm.</p>
+                    <a href="#" class="btn-small">Read Our Story</a>
+                </div>
+                <div class="about-image">
+                    Farm View Image
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Calendar Section -->
+    <section class="seasonal-calendar" id="calendar">
+        <div class="container">
+            <h2 class="section-title">Seasonal Growing Calendar</h2>
+            <p class="section-description">See what's growing and harvesting throughout the year</p>
+            
+            <div class="calendar-container">
+                <div class="season">
+                    <h3>Spring <span>(Mar-May)</span></h3>
+                    <ul>
+                        <li>Planting: Tomatoes, Peppers, Cucumbers</li>
+                        <li>Harvesting: Spring Greens, Radishes, Asparagus</li>
+                    </ul>
+                </div>
+                <div class="season">
+                    <h3>Summer <span>(Jun-Aug)</span></h3>
+                    <ul>
+                        <li>Planting: Pumpkins, Squash, Melons</li>
+                        <li>Harvesting: Tomatoes, Berries, Zucchini, Corn</li>
+                    </ul>
+                </div>
+                <div class="season">
+                    <h3>Fall <span>(Sep-Nov)</span></h3>
+                    <ul>
+                        <li>Planting: Garlic, Cover Crops, Winter Greens</li>
+                        <li>Harvesting: Apples, Pumpkins, Root Vegetables</li>
+                    </ul>
+                </div>
+                <div class="season">
+                    <h3>Winter <span>(Dec-Feb)</span></h3>
+                    <ul>
+                        <li>Planting: Planning next season, Greenhouse starts</li>
+                        <li>Harvesting: Winter Squash, Stored Crops, Greenhouse Greens</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview Section -->
+    <section class="blog-preview" id="blog">
+        <div class="container">
+            <h2 class="section-title">From Our Blog</h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        Blog Image 1
+                    </div>
+                    <div class="blog-content">
+                        <h3>Sustainable Farming Practices for Small Farms</h3>
+                        <p class="blog-date">May 15, 2023</p>
+                        <p>Learn how small farms can implement sustainable practices that benefit both the environment and your bottom line.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image" style="background-color: #9ccc65;">
+                        Blog Image 2
+                    </div>
+                    <div class="blog-content">
+                        <h3>Seasonal Recipes: Making the Most of Summer Harvest</h3>
+                        <p class="blog-date">June 2, 2023</p>
+                        <p>Delicious recipes that highlight the flavors of summer produce from our farm to your table.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="center-btn">
+                <a href="#" class="btn-small">View All Posts</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated with Farm News</h2>
+                <p>Subscribe to our newsletter for seasonal updates, special offers, and farming tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Farm Langu</h3>
+                    <p>Sustainable farming for a healthier tomorrow.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#top">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#calendar">Farming Calendar</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Farm Road, Countryside, Country</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@farmlangu.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Farm Langu. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a nav link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
