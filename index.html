@@ -21,46 +21,51 @@
             background-color: #f9f9f9;
         }
         
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
         
         /* Header Styles */
         header {
-            background-color: #fff;
+            background-color: #f8fdf8;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
+            padding: 2px 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
         
-        .logo h1 {
-            color: #2e7d32;
-            font-size: 2rem;
-        }
-        
-        .logo p {
-            color: #689f38;
-            font-size: 1rem;
-        }
-        
-        nav {
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
+        /* Logo Styles */
+        .logo {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .logo img {
+            height: 32px;
+        }
+        
+        /* Navigation Styles */
+        nav {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+        
         .nav-menu {
             display: flex;
             list-style: none;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
         }
         
         .nav-menu li {
-            margin-left: 20px;
+            margin: 0 15px;
         }
         
         .nav-menu a {
@@ -68,12 +73,51 @@
             color: #333;
             font-weight: 500;
             transition: color 0.3s;
+            display: block;
+            padding: 2px 0;
         }
         
         .nav-menu a:hover, .nav-menu a.active {
             color: #2e7d32;
+            border-bottom: 2px solid #2e7d32;
         }
         
+        /* Search Box Styles */
+        .search-box {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 14px;
+            width: 180px;
+        }
+        
+        .search-button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #1b5e20;
+        }
+        
+        /* Mobile Menu */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -89,7 +133,7 @@
         
         /* Hero Section */
         .hero {
-            background-color: #2e7d32;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/hero.jpg');
             background-size: cover;
             background-position: center;
             height: 80vh;
@@ -427,11 +471,59 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 992px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                flex: 0 0 50%;
+                order: 1;
+            }
+            
+            .search-box {
+                flex: 0 0 50%;
+                order: 2;
+                justify-content: flex-end;
+            }
+            
+            nav {
+                flex: 0 0 100%;
+                order: 3;
+                margin-top: 10px;
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .header-container {
+                position: relative;
+            }
+            
+            .logo {
+                flex: 1;
+            }
+            
+            .search-box {
+                flex: 0;
+            }
+            
+            .search-form {
+                display: none;
+            }
+            
+            nav {
+                order: 4;
+                margin-top: 0;
+            }
+            
             .nav-menu {
                 position: fixed;
                 left: -100%;
-                top: 70px;
+                top: 80px;
                 flex-direction: column;
                 background-color: #fff;
                 width: 100%;
@@ -439,6 +531,7 @@
                 transition: 0.3s;
                 box-shadow: 0 10px 10px rgba(0,0,0,0.1);
                 padding: 20px 0;
+                z-index: 100;
             }
             
             .nav-menu.active {
@@ -449,8 +542,18 @@
                 margin: 15px 0;
             }
             
+            .nav-menu a {
+                padding: 10px;
+            }
+            
+            .nav-menu a:hover, .nav-menu a.active {
+                border-bottom: none;
+                background-color: #f1f8e9;
+            }
+            
             .hamburger {
                 display: block;
+                margin-left: 20px;
             }
             
             .hamburger.active .bar:nth-child(2) {
@@ -495,11 +598,13 @@
 <body>
     <!-- Header Section -->
     <header>
-        <div class="container">
+        <div class="header-container">
+            <!-- Logo on the left -->
             <div class="logo">
-                <h1>Farm Langu</h1>
-                <p>Fresh From Our Fields</p>
+                <img src="images/final logo.png" alt="Farm Langu Logo">
             </div>
+            
+            <!-- Navigation in the middle -->
             <nav>
                 <ul class="nav-menu">
                     <li><a href="index.html" class="active">Home</a></li>
@@ -509,20 +614,33 @@
                     <li><a href="#blog">Blog</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
+            </nav>
+            
+            <!-- Search box on the right -->
+            <div class="search-box">
+                <form class="search-form">
+                    <input type="text" class="search-input" placeholder="Search...">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                
+                <!-- Mobile menu button -->
                 <div class="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-            </nav>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h2>Welcome to Our Farm</h2>
-            <p>Sustainable farming for a healthier tomorrow</p>
+             <h1>Fresh From the Farm to Your Table</h1>
+    <p>Healthy, organic, and locally grown produce — every day, for everyone.</p>
+            
             <a href="#products" class="btn">Explore Our Products</a>
         </div>
     </section>
@@ -534,7 +652,7 @@
             <div class="products-grid">
                 <div class="product-card">
                     <div class="product-image">
-                        Vegetables Image
+                        <img src="images/vegetables.jpg" alt="Organic Vegetables" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-info">
                         <h3>Organic Vegetables</h3>
@@ -543,8 +661,8 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image" style="background-color: #ffb74d;">
-                        Fruits Image
+                    <div class="product-image">
+                        <img src="images/tomato.jpg" alt="Seasonal Fruits" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-info">
                         <h3>Seasonal Fruits</h3>
@@ -553,8 +671,8 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image" style="background-color: #fff176; color: #333;">
-                        Eggs Image
+                    <div class="product-image">
+                        <img src="images/eggs.jpg" alt="Farm Fresh Eggs" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-info">
                         <h3>Farm Fresh Eggs</h3>
@@ -577,7 +695,7 @@
                     <a href="#" class="btn-small">Read Our Story</a>
                 </div>
                 <div class="about-image">
-                    Farm View Image
+                    <img src="images/field.jpg" alt="Farm View" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
                 </div>
             </div>
         </div>
@@ -629,7 +747,7 @@
             <div class="blog-grid">
                 <div class="blog-card">
                     <div class="blog-image">
-                        Blog Image 1
+                        <img src="images/sustainable.jpg" alt="Sustainable Farming" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="blog-content">
                         <h3>Sustainable Farming Practices for Small Farms</h3>
@@ -639,8 +757,8 @@
                     </div>
                 </div>
                 <div class="blog-card">
-                    <div class="blog-image" style="background-color: #9ccc65;">
-                        Blog Image 2
+                    <div class="blog-image">
+                        <img src="images/harvest.jpg" alt="Seasonal Harvest" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="blog-content">
                         <h3>Seasonal Recipes: Making the Most of Summer Harvest</h3>
@@ -713,6 +831,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
+            const searchForm = document.querySelector('.search-form');
             
             hamburger.addEventListener('click', function() {
                 hamburger.classList.toggle('active');
@@ -725,6 +844,54 @@
                     hamburger.classList.remove('active');
                     navMenu.classList.remove('active');
                 });
+            });
+            
+            // Handle search form submission
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchInput = document.querySelector('.search-input');
+                    const searchTerm = searchInput.value.trim();
+                    
+                    if (searchTerm) {
+                        alert('Searching for: ' + searchTerm);
+                        // Here you would normally send the search to your backend
+                        // For now, we'll just clear the input
+                        searchInput.value = '';
+                    } else {
+                        alert('Please enter a search term');
+                    }
+                });
+            }
+            
+            // Also handle search button click directly
+            const searchButton = document.querySelector('.search-button');
+            if (searchButton) {
+                searchButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const searchInput = document.querySelector('.search-input');
+                    const searchTerm = searchInput.value.trim();
+                    
+                    if (searchTerm) {
+                        alert('Searching for: ' + searchTerm);
+                        // Here you would normally send the search to your backend
+                        searchInput.value = '';
+                    } else {
+                        alert('Please enter a search term');
+                    }
+                });
+            }
+            
+            // Add scroll effect to header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.style.padding = '5px 0';
+                    header.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+                } else {
+                    header.style.padding = '10px 0';
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                }
             });
         });
     </script>
