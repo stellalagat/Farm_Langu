@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - Farm Langu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-98T0P7M8n9uF3dQ2fQh4wV3zEo7qvCjV0a8n6n0L0+0i1FJm6G2D2q9m0M3xS8Rr8zFzQKm7sJ2b4z5wW3H6dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --green-600: #2e7d32;
+      --green-500: #388e3c;
+      --green-400: #43a047;
+      --beige-50: #faf7f1;
+      --beige-100: #f5efe3;
+      --brown-700: #5d4037;
+      --text-900: #202420;
+      --text-700: #33443a;
+      --accent: #8bc34a;
+      --maxw: 1000px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text-900); background: linear-gradient(180deg, var(--beige-50), var(--beige-100));
+    }
+
+    .container { width: min(100%, var(--maxw)); margin: 0 auto; padding: 0 18px; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.2rem; border-radius: 16px; border: none; cursor: pointer; font-weight: 600; box-shadow: var(--shadow-soft); transition: transform .15s ease, opacity .2s ease; text-decoration: none; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); opacity: .92; }
+    .btn-primary { background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: #fff; }
+    .btn-secondary { background: #eef6ef; color: var(--green-600); }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(245, 239, 227, 0.9); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 12px 0; }
+    .brand { display:flex; gap:.6rem; align-items:center; font-weight: 800; letter-spacing:.3px; color: var(--green-600); text-decoration: none; }
+    .brand i { font-size: 1.3rem; }
+    nav ul { list-style: none; display:flex; gap: 1rem; padding: 0; margin: 0; }
+    nav a { text-decoration: none; color: var(--text-700); font-weight: 600; padding:.45rem .7rem; border-radius: 10px; }
+    nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
+
+    /* Page Header */
+    .page-header { padding: 60px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center; }
+    .page-header h1 { font-size: 2.5rem; margin: 0 0 1rem; }
+    .page-header p { font-size: 1.2rem; opacity: 0.9; max-width: 60ch; margin: 0 auto; }
+
+    /* Content Sections */
+    .content-section { padding: 60px 0; }
+    .content-section h2 { color: var(--green-600); font-size: 2rem; margin-bottom: 1.5rem; }
+    .content-section p { font-size: 1.1rem; line-height: 1.7; color: var(--text-700); margin-bottom: 1.5rem; }
+
+    .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin: 40px 0; }
+    .stat-card { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center; }
+    .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--green-600); margin-bottom: 8px; }
+    .stat-label { color: var(--text-700); font-weight: 600; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin: 40px 0; }
+    .team-member { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center; }
+    .team-member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 16px; }
+    .team-member h3 { margin: 0 0 8px; color: var(--brown-700); }
+    .team-member .role { color: var(--green-600); font-weight: 600; margin-bottom: 12px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 2rem; }
+      .two-column { grid-template-columns: 1fr; gap: 24px; }
+      .content-section { padding: 40px 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Farm Langu home">
+        <i class="fa-solid fa-wheat-awn"></i>
+        <span>Farm Langu</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="farmers.html">For Farmers</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>About Farm Langu</h1>
+      <p>Connecting farmers with customers for a sustainable agricultural future</p>
+    </div>
+  </section>
+
+  <!-- Our Mission -->
+  <section class="content-section">
+    <div class="container">
+      <div class="two-column">
+        <div>
+          <h2>Our Mission</h2>
+          <p>Farm Langu is dedicated to revolutionizing agriculture in Kenya by creating direct connections between farmers and consumers. We believe that by eliminating middlemen and providing farmers with digital tools, we can create a more sustainable and profitable agricultural ecosystem.</p>
+          <p>Our platform empowers smallholder farmers to reach wider markets, get fair prices for their produce, and build sustainable livelihoods while providing consumers with fresh, traceable, and affordable agricultural products.</p>
+        </div>
+        <div>
+          <img src="images/farmers.jpg" alt="Farmers working in the field" style="width: 100%; border-radius: 18px; box-shadow: var(--shadow-soft);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Impact -->
+  <section class="content-section" style="background: white;">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">Our Impact</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">2,500+</div>
+          <div class="stat-label">Farmers Registered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">Orders Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">30%</div>
+          <div class="stat-label">Average Income Increase</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">47</div>
+          <div class="stat-label">Counties Reached</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="content-section">
+    <div class="container">
+      <h2>Our Story</h2>
+      <p>Farm Langu was founded in 2020 by a team of agricultural enthusiasts who witnessed the challenges faced by smallholder farmers in Kenya. Despite producing quality crops, many farmers struggled to access markets and get fair prices for their produce.</p>
+      <p>We started with a simple idea: what if we could use technology to connect farmers directly with consumers? What began as a small pilot project in Nakuru has now grown into a nationwide platform serving thousands of farmers and customers across Kenya.</p>
+      <p>Today, Farm Langu is more than just a marketplace. We're a community of farmers, consumers, and agricultural advocates working together to build a more sustainable and equitable food system.</p>
+    </div>
+  </section>
+
+  <!-- Our Values -->
+  <section class="content-section" style="background: white;">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 2rem;">Our Values</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <i class="fa-solid fa-handshake" style="font-size: 3rem; color: var(--green-600); margin-bottom: 16px;"></i>
+          <h3>Fairness</h3>
+          <p>We ensure farmers get fair prices and consumers get quality products at reasonable costs.</p>
+        </div>
+        <div class="team-member">
+          <i class="fa-solid fa-leaf" style="font-size: 3rem; color: var(--green-600); margin-bottom: 16px;"></i>
+          <h3>Sustainability</h3>
+          <p>We promote sustainable farming practices that protect the environment for future generations.</p>
+        </div>
+        <div class="team-member">
+          <i class="fa-solid fa-users" style="font-size: 3rem; color: var(--green-600); margin-bottom: 16px;"></i>
+          <h3>Community</h3>
+          <p>We build strong communities by connecting farmers, consumers, and agricultural stakeholders.</p>
+        </div>
+        <div class="team-member">
+          <i class="fa-solid fa-lightbulb" style="font-size: 3rem; color: var(--green-600); margin-bottom: 16px;"></i>
+          <h3>Innovation</h3>
+          <p>We leverage technology to solve agricultural challenges and improve livelihoods.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="content-section">
+    <div class="container" style="text-align: center;">
+      <h2>Join Our Mission</h2>
+      <p style="max-width: 60ch; margin: 0 auto 2rem;">Whether you're a farmer looking to expand your market or a consumer seeking fresh, local produce, Farm Langu is here to serve you.</p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="farmers.html" class="btn btn-primary">
+          <i class="fa-solid fa-user-plus"></i>
+          Become a Farmer
+        </a>
+        <a href="shop.html" class="btn btn-secondary">
+          <i class="fa-solid fa-shopping-cart"></i>
+          Start Shopping
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px;">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;">
+      <div>
+        <strong>Farm Langu</strong> — Growing sustainably together.
+        <div style="margin-top:6px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
+      </div>
+      <div style="display:flex; gap: 10px;" aria-label="Social links">
+        <a href="#" aria-label="Facebook" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Update year automatically
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

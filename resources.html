@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Farming Resources & Guides - Farm Langu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-98T0P7M8n9uF3dQ2fQh4wV3zEo7qvCjV0a8n6n0L0+0i1FJm6G2D2q9m0M3xS8Rr8zFzQKm7sJ2b4z5wW3H6dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --green-600: #2e7d32;
+      --green-500: #388e3c;
+      --green-400: #43a047;
+      --beige-50: #faf7f1;
+      --beige-100: #f5efe3;
+      --brown-700: #5d4037;
+      --text-900: #202420;
+      --text-700: #33443a;
+      --accent: #8bc34a;
+      --maxw: 1200px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text-900); background: linear-gradient(180deg, var(--beige-50), var(--beige-100));
+    }
+
+    .container { width: min(100%, var(--maxw)); margin: 0 auto; padding: 0 18px; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.2rem; border-radius: 16px; border: none; cursor: pointer; font-weight: 600; box-shadow: var(--shadow-soft); transition: transform .15s ease, opacity .2s ease; text-decoration: none; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); opacity: .92; }
+    .btn-primary { background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: #fff; }
+    .btn-secondary { background: #eef6ef; color: var(--green-600); }
+    .tag { display:inline-block; padding:.35rem .7rem; border-radius: 999px; font-size:.78rem; background: #e9f5ea; color: var(--green-600); font-weight:600; text-transform: capitalize; }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(245, 239, 227, 0.9); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 12px 0; }
+    .brand { display:flex; gap:.6rem; align-items:center; font-weight: 800; letter-spacing:.3px; color: var(--green-600); text-decoration: none; }
+    .brand i { font-size: 1.3rem; }
+    nav ul { list-style: none; display:flex; gap: 1rem; padding: 0; margin: 0; }
+    nav a { text-decoration: none; color: var(--text-700); font-weight: 600; padding:.45rem .7rem; border-radius: 10px; }
+    nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
+
+    /* Page Header */
+    .page-header { padding: 60px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center; }
+    .page-header h1 { font-size: 2.5rem; margin: 0 0 1rem; }
+    .page-header p { font-size: 1.2rem; opacity: 0.9; max-width: 60ch; margin: 0 auto; }
+
+    /* Resource Categories */
+    .resource-categories { padding: 60px 0; }
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .category-card { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center; cursor: pointer; transition: transform 0.2s ease; }
+    .category-card:hover { transform: translateY(-4px); }
+    .category-card i { font-size: 3rem; color: var(--green-600); margin-bottom: 16px; }
+    .category-card h3 { margin: 0 0 12px; color: var(--brown-700); }
+    .category-card p { color: var(--text-700); margin-bottom: 16px; }
+
+    /* Resource Content */
+    .resource-section { padding: 60px 0; display: none; }
+    .resource-section.active { display: block; }
+    .resource-section h2 { color: var(--green-600); font-size: 2rem; margin-bottom: 2rem; text-align: center; }
+
+    /* Planting Calendar */
+    .calendar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .month-card { background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft); }
+    .month-card h3 { color: var(--green-600); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .crop-list { list-style: none; padding: 0; margin: 0; }
+    .crop-list li { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .crop-list li:last-child { border-bottom: none; }
+    .crop-name { font-weight: 600; }
+    .crop-season { font-size: 0.8rem; color: var(--text-700); }
+
+    /* Regional Guide */
+    .regions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
+    .region-card { background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft); }
+    .region-card h3 { color: var(--green-600); margin-bottom: 16px; }
+    .climate-info { background: #f8fff8; padding: 16px; border-radius: 12px; margin-bottom: 16px; }
+    .suitable-crops { display: flex; flex-wrap: gap; gap: 8px; }
+    .crop-tag { background: var(--green-600); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; }
+
+    /* Seeds Guide */
+    .seeds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .seed-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-soft); }
+    .seed-card img { width: 100%; height: 200px; object-fit: cover; }
+    .seed-content { padding: 24px; }
+    .seed-card h3 { margin: 0 0 12px; color: var(--brown-700); }
+    .seed-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .spec-item { text-align: center; padding: 12px; background: #f8fff8; border-radius: 8px; }
+    .spec-value { font-weight: 700; color: var(--green-600); font-size: 1.1rem; }
+    .spec-label { font-size: 0.8rem; color: var(--text-700); }
+
+    /* Pest Control */
+    .pest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .pest-card { background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft); }
+    .pest-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .pest-icon { width: 50px; height: 50px; background: #fff3cd; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .pest-icon i { color: #856404; font-size: 1.5rem; }
+    .pest-card h3 { margin: 0; color: var(--brown-700); }
+    .treatment-list { list-style: none; padding: 0; margin: 16px 0 0; }
+    .treatment-list li { padding: 8px 0; border-bottom: 1px solid #eee; }
+    .treatment-list li:last-child { border-bottom: none; }
+    .treatment-type { font-weight: 600; color: var(--green-600); }
+
+    /* Search and Filter */
+    .resource-filters { padding: 24px 0; background: white; border-bottom: 1px solid rgba(0,0,0,.06); margin-bottom: 40px; }
+    .filters-content { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .search-box { flex: 1; min-width: 250px; position: relative; }
+    .search-input { width: 100%; padding: 12px 16px 12px 40px; border: 1px solid #ddd; border-radius: 12px; font: inherit; }
+    .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; }
+
+    /* Back to Top */
+    .back-to-top { position: fixed; bottom: 20px; right: 20px; background: var(--green-600); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: var(--shadow-soft); display: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 2rem; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .calendar-grid, .regions-grid, .seeds-grid, .pest-grid { grid-template-columns: 1fr; }
+      .filters-content { flex-direction: column; align-items: stretch; }
+      .search-box { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Farm Langu home">
+        <i class="fa-solid fa-wheat-awn"></i>
+        <span>Farm Langu</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="farmers.html">For Farmers</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Farming Resources & Guides</h1>
+      <p>Everything you need to know about successful farming in Kenya - from planting seasons to pest control</p>
+    </div>
+  </section>
+
+  <!-- Resource Categories -->
+  <section class="resource-categories">
+    <div class="container">
+      <div class="categories-grid">
+        <div class="category-card" onclick="showResourceSection('planting-calendar')">
+          <i class="fa-solid fa-calendar-alt"></i>
+          <h3>Planting Calendar</h3>
+          <p>Best times to plant different crops throughout the year in Kenya</p>
+          <div class="tag">Seasonal Guide</div>
+        </div>
+        
+        <div class="category-card" onclick="showResourceSection('regional-guide')">
+          <i class="fa-solid fa-map-marked-alt"></i>
+          <h3>Regional Planting Guide</h3>
+          <p>What to grow in different regions and climate zones across Kenya</p>
+          <div class="tag">Location Based</div>
+        </div>
+        
+        <div class="category-card" onclick="showResourceSection('seeds-guide')">
+          <i class="fa-solid fa-seedling"></i>
+          <h3>Seeds & Varieties</h3>
+          <p>High-yield seed varieties and their characteristics for better harvests</p>
+          <div class="tag">Seed Selection</div>
+        </div>
+        
+        <div class="category-card" onclick="showResourceSection('pest-control')">
+          <i class="fa-solid fa-bug"></i>
+          <h3>Pest & Disease Control</h3>
+          <p>Identify and treat common pests and diseases affecting your crops</p>
+          <div class="tag">Plant Protection</div>
+        </div>
+        
+        <div class="category-card" onclick="showResourceSection('soil-management')">
+          <i class="fa-solid fa-mountain"></i>
+          <h3>Soil Management</h3>
+          <p>Soil testing, fertilization, and improvement techniques</p>
+          <div class="tag">Soil Health</div>
+        </div>
+        
+        <div class="category-card" onclick="showResourceSection('irrigation')">
+          <i class="fa-solid fa-tint"></i>
+          <h3>Irrigation & Water</h3>
+          <p>Water management and irrigation systems for different crops</p>
+          <div class="tag">Water Management</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planting Calendar Section -->
+  <section id="planting-calendar" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-calendar-alt"></i> Kenya Planting Calendar</h2>
+      
+      <div class="resource-filters">
+        <div class="filters-content">
+          <div class="search-box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search crops..." id="calendar-search">
+          </div>
+        </div>
+      </div>
+      
+      <div class="calendar-grid">
+        <div class="month-card">
+          <h3><i class="fa-solid fa-cloud-rain"></i> March - May (Long Rains)</h3>
+          <ul class="crop-list">
+            <li><span class="crop-name">Maize</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Beans</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Sorghum</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Millet</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Cowpeas</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Tomatoes</span> <span class="crop-season">Transplant</span></li>
+            <li><span class="crop-name">Kales</span> <span class="crop-season">Direct Sow</span></li>
+          </ul>
+        </div>
+        
+        <div class="month-card">
+          <h3><i class="fa-solid fa-sun"></i> June - August (Dry Season)</h3>
+          <ul class="crop-list">
+            <li><span class="crop-name">Irish Potatoes</span> <span class="crop-season">Highland Areas</span></li>
+            <li><span class="crop-name">Carrots</span> <span class="crop-season">Cool Areas</span></li>
+            <li><span class="crop-name">Cabbages</span> <span class="crop-season">Cool Season</span></li>
+            <li><span class="crop-name">Onions</span> <span class="crop-season">Nursery</span></li>
+            <li><span class="crop-name">Spinach</span> <span class="crop-season">Cool Season</span></li>
+          </ul>
+        </div>
+        
+        <div class="month-card">
+          <h3><i class="fa-solid fa-cloud-rain"></i> October - December (Short Rains)</h3>
+          <ul class="crop-list">
+            <li><span class="crop-name">Maize</span> <span class="crop-season">Short Season</span></li>
+            <li><span class="crop-name">Beans</span> <span class="crop-season">Short Season</span></li>
+            <li><span class="crop-name">Green Grams</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Pigeon Peas</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Sunflower</span> <span class="crop-season">Main Season</span></li>
+            <li><span class="crop-name">Groundnuts</span> <span class="crop-season">Main Season</span></li>
+          </ul>
+        </div>
+        
+        <div class="month-card">
+          <h3><i class="fa-solid fa-thermometer-half"></i> Year-Round Crops</h3>
+          <ul class="crop-list">
+            <li><span class="crop-name">Bananas</span> <span class="crop-season">Perennial</span></li>
+            <li><span class="crop-name">Sweet Potatoes</span> <span class="crop-season">Any Season</span></li>
+            <li><span class="crop-name">Cassava</span> <span class="crop-season">Any Season</span></li>
+            <li><span class="crop-name">Passion Fruit</span> <span class="crop-season">Perennial</span></li>
+            <li><span class="crop-name">Tree Tomatoes</span> <span class="crop-season">Perennial</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional Guide Section -->
+  <section id="regional-guide" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-map-marked-alt"></i> Regional Planting Guide</h2>
+      
+      <div class="regions-grid">
+        <div class="region-card">
+          <h3>Central Kenya (Kiambu, Murang'a, Nyeri)</h3>
+          <div class="climate-info">
+            <strong>Climate:</strong> Cool, high altitude (1,500-2,500m)<br>
+            <strong>Rainfall:</strong> 1,000-1,500mm annually<br>
+            <strong>Temperature:</strong> 15-25°C
+          </div>
+          <h4>Best Crops:</h4>
+          <div class="suitable-crops">
+            <span class="crop-tag">Coffee</span>
+            <span class="crop-tag">Tea</span>
+            <span class="crop-tag">Irish Potatoes</span>
+            <span class="crop-tag">Maize</span>
+            <span class="crop-tag">Beans</span>
+            <span class="crop-tag">Cabbages</span>
+            <span class="crop-tag">Carrots</span>
+          </div>
+        </div>
+        
+        <div class="region-card">
+          <h3>Rift Valley (Nakuru, Eldoret, Kericho)</h3>
+          <div class="climate-info">
+            <strong>Climate:</strong> Temperate, high altitude<br>
+            <strong>Rainfall:</strong> 800-1,200mm annually<br>
+            <strong>Temperature:</strong> 10-28°C
+          </div>
+          <h4>Best Crops:</h4>
+          <div class="suitable-crops">
+            <span class="crop-tag">Wheat</span>
+            <span class="crop-tag">Barley</span>
+            <span class="crop-tag">Maize</span>
+            <span class="crop-tag">Pyrethrum</span>
+            <span class="crop-tag">Sunflower</span>
+            <span class="crop-tag">Irish Potatoes</span>
+          </div>
+        </div>
+        
+        <div class="region-card">
+          <h3>Western Kenya (Kisumu, Kakamega, Busia)</h3>
+          <div class="climate-info">
+            <strong>Climate:</strong> Tropical, moderate altitude<br>
+            <strong>Rainfall:</strong> 1,200-1,800mm annually<br>
+            <strong>Temperature:</strong> 20-30°C
+          </div>
+          <h4>Best Crops:</h4>
+          <div class="suitable-crops">
+            <span class="crop-tag">Sugarcane</span>
+            <span class="crop-tag">Maize</span>
+            <span class="crop-tag">Sorghum</span>
+            <span class="crop-tag">Millet</span>
+            <span class="crop-tag">Cotton</span>
+            <span class="crop-tag">Rice</span>
+          </div>
+        </div>
+        
+        <div class="region-card">
+          <h3>Eastern Kenya (Meru, Embu, Machakos)</h3>
+          <div class="climate-info">
+            <strong>Climate:</strong> Semi-arid to humid<br>
+            <strong>Rainfall:</strong> 500-1,400mm annually<br>
+            <strong>Temperature:</strong> 18-28°C
+          </div>
+          <h4>Best Crops:</h4>
+          <div class="suitable-crops">
+            <span class="crop-tag">Coffee</span>
+            <span class="crop-tag">Miraa</span>
+            <span class="crop-tag">Bananas</span>
+            <span class="crop-tag">Maize</span>
+            <span class="crop-tag">Beans</span>
+            <span class="crop-tag">Sorghum</span>
+          </div>
+        </div>
+        
+        <div class="region-card">
+          <h3>Coast Region (Mombasa, Kilifi, Kwale)</h3>
+          <div class="climate-info">
+            <strong>Climate:</strong> Tropical, hot and humid<br>
+            <strong>Rainfall:</strong> 500-1,200mm annually<br>
+            <strong>Temperature:</strong> 22-32°C
+          </div>
+          <h4>Best Crops:</h4>
+          <div class="suitable-crops">
+            <span class="crop-tag">Coconuts</span>
+            <span class="crop-tag">Cashew Nuts</span>
+            <span class="crop-tag">Mangoes</span>
+            <span class="crop-tag">Cassava</span>
+            <span class="crop-tag">Sweet Potatoes</span>
+            <span class="crop-tag">Sesame</span>
+          </div>
+        </div>
+        
+        <div class="region-card">
+          <h3>Northern Kenya (Turkana, Marsabit, Garissa)</h3>
+          <div class="climate-info">
+            <strong>Climate:</strong> Arid and semi-arid<br>
+            <strong>Rainfall:</strong> 200-600mm annually<br>
+            <strong>Temperature:</strong> 20-35°C
+          </div>
+          <h4>Best Crops:</h4>
+          <div class="suitable-crops">
+            <span class="crop-tag">Sorghum</span>
+            <span class="crop-tag">Millet</span>
+            <span class="crop-tag">Cowpeas</span>
+            <span class="crop-tag">Green Grams</span>
+            <span class="crop-tag">Drought-resistant varieties</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seeds Guide Section -->
+  <section id="seeds-guide" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-seedling"></i> High-Yield Seed Varieties</h2>
+      
+      <div class="seeds-grid">
+        <div class="seed-card">
+          <img src="images/organic.jpg" alt="Maize seeds">
+          <div class="seed-content">
+            <h3>Hybrid Maize - H614</h3>
+            <p>High-yielding drought-tolerant variety suitable for medium to low altitude areas.</p>
+            <div class="seed-specs">
+              <div class="spec-item">
+                <div class="spec-value">120-130</div>
+                <div class="spec-label">Days to Maturity</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-value">8-12 tons</div>
+                <div class="spec-label">Yield per Ha</div>
+              </div>
+            </div>
+            <div class="tag">Drought Tolerant</div>
+            <a href="shop.html" class="btn btn-primary" style="margin-top: 12px;">
+              <i class="fa-solid fa-shopping-cart"></i> Buy Seeds
+            </a>
+          </div>
+        </div>
+        
+        <div class="seed-card">
+          <img src="images/vegetables.jpg" alt="Bean seeds">
+          <div class="seed-content">
+            <h3>Climbing Beans - KK8</h3>
+            <p>High-yielding climbing variety with excellent disease resistance.</p>
+            <div class="seed-specs">
+              <div class="spec-item">
+                <div class="spec-value">90-100</div>
+                <div class="spec-label">Days to Maturity</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-value">2-3 tons</div>
+                <div class="spec-label">Yield per Ha</div>
+              </div>
+            </div>
+            <div class="tag">Disease Resistant</div>
+            <a href="shop.html" class="btn btn-primary" style="margin-top: 12px;">
+              <i class="fa-solid fa-shopping-cart"></i> Buy Seeds
+            </a>
+          </div>
+        </div>
+        
+        <div class="seed-card">
+          <img src="images/tomato.jpg" alt="Tomato seeds">
+          <div class="seed-content">
+            <h3>Tomato - Anna F1</h3>
+            <p>Determinate variety with uniform ripening and excellent shelf life.</p>
+            <div class="seed-specs">
+              <div class="spec-item">
+                <div class="spec-value">75-80</div>
+                <div class="spec-label">Days to Maturity</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-value">40-60 tons</div>
+                <div class="spec-label">Yield per Ha</div>
+              </div>
+            </div>
+            <div class="tag">High Yield</div>
+            <a href="shop.html" class="btn btn-primary" style="margin-top: 12px;">
+              <i class="fa-solid fa-shopping-cart"></i> Buy Seeds
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pest Control Section -->
+  <section id="pest-control" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-bug"></i> Pest & Disease Control Guide</h2>
+      
+      <div class="pest-grid">
+        <div class="pest-card">
+          <div class="pest-header">
+            <div class="pest-icon">
+              <i class="fa-solid fa-bug"></i>
+            </div>
+            <h3>Fall Armyworm</h3>
+          </div>
+          <p><strong>Affects:</strong> Maize, Sorghum, Rice</p>
+          <p><strong>Symptoms:</strong> Holes in leaves, damaged growing points</p>
+          <h4>Treatment Options:</h4>
+          <ul class="treatment-list">
+            <li><span class="treatment-type">Biological:</span> Trichogramma wasps</li>
+            <li><span class="treatment-type">Chemical:</span> Emamectin benzoate</li>
+            <li><span class="treatment-type">Cultural:</span> Early planting, crop rotation</li>
+          </ul>
+        </div>
+        
+        <div class="pest-card">
+          <div class="pest-header">
+            <div class="pest-icon">
+              <i class="fa-solid fa-leaf"></i>
+            </div>
+            <h3>Tomato Blight</h3>
+          </div>
+          <p><strong>Affects:</strong> Tomatoes, Potatoes</p>
+          <p><strong>Symptoms:</strong> Brown spots on leaves, fruit rot</p>
+          <h4>Treatment Options:</h4>
+          <ul class="treatment-list">
+            <li><span class="treatment-type">Fungicide:</span> Copper-based sprays</li>
+            <li><span class="treatment-type">Preventive:</span> Proper spacing, drainage</li>
+            <li><span class="treatment-type">Organic:</span> Baking soda solution</li>
+          </ul>
+        </div>
+        
+        <div class="pest-card">
+          <div class="pest-header">
+            <div class="pest-icon">
+              <i class="fa-solid fa-spider"></i>
+            </div>
+            <h3>Aphids</h3>
+          </div>
+          <p><strong>Affects:</strong> Most vegetables, cereals</p>
+          <p><strong>Symptoms:</strong> Curled leaves, sticky honeydew</p>
+          <h4>Treatment Options:</h4>
+          <ul class="treatment-list">
+            <li><span class="treatment-type">Biological:</span> Ladybugs, lacewings</li>
+            <li><span class="treatment-type">Organic:</span> Neem oil, soap spray</li>
+            <li><span class="treatment-type">Chemical:</span> Imidacloprid</li>
+          </ul>
+        </div>
+        
+        <div class="pest-card">
+          <div class="pest-header">
+            <div class="pest-icon">
+              <i class="fa-solid fa-seedling"></i>
+            </div>
+            <h3>Cutworms</h3>
+          </div>
+          <p><strong>Affects:</strong> Young seedlings</p>
+          <p><strong>Symptoms:</strong> Cut stems at soil level</p>
+          <h4>Treatment Options:</h4>
+          <ul class="treatment-list">
+            <li><span class="treatment-type">Physical:</span> Collar barriers</li>
+            <li><span class="treatment-type">Biological:</span> Bacillus thuringiensis</li>
+            <li><span class="treatment-type">Chemical:</span> Chlorpyrifos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Categories Button -->
+  <div style="text-align: center; padding: 40px 0;">
+    <button class="btn btn-secondary" onclick="showCategories()">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Categories
+    </button>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" onclick="scrollToTop()">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer style="padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px;">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;">
+      <div>
+        <strong>Farm Langu</strong> — Growing sustainably together.
+        <div style="margin-top:6px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
+      </div>
+      <div style="display:flex; gap: 10px;" aria-label="Social links">
+        <a href="#" aria-label="Facebook" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Show back to top button when scrolling
+      window.addEventListener('scroll', function() {
+        const backToTop = document.querySelector('.back-to-top');
+        if (window.pageYOffset > 300) {
+          backToTop.style.display = 'block';
+        } else {
+          backToTop.style.display = 'none';
+        }
+      });
+    });
+
+    function showResourceSection(sectionId) {
+      // Hide categories
+      document.querySelector('.resource-categories').style.display = 'none';
+      
+      // Hide all resource sections
+      document.querySelectorAll('.resource-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    function showCategories() {
+      // Show categories
+      document.querySelector('.resource-categories').style.display = 'block';
+      
+      // Hide all resource sections
+      document.querySelectorAll('.resource-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Search functionality for calendar
+    document.getElementById('calendar-search')?.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const cropItems = document.querySelectorAll('.crop-list li');
+      
+      cropItems.forEach(item => {
+        const cropName = item.querySelector('.crop-name').textContent.toLowerCase();
+        if (cropName.includes(searchTerm)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

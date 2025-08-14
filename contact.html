@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us - Farm Langu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-98T0P7M8n9uF3dQ2fQh4wV3zEo7qvCjV0a8n6n0L0+0i1FJm6G2D2q9m0M3xS8Rr8zFzQKm7sJ2b4z5wW3H6dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --green-600: #2e7d32;
+      --green-500: #388e3c;
+      --green-400: #43a047;
+      --beige-50: #faf7f1;
+      --beige-100: #f5efe3;
+      --brown-700: #5d4037;
+      --text-900: #202420;
+      --text-700: #33443a;
+      --accent: #8bc34a;
+      --maxw: 1000px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text-900); background: linear-gradient(180deg, var(--beige-50), var(--beige-100));
+    }
+
+    .container { width: min(100%, var(--maxw)); margin: 0 auto; padding: 0 18px; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.2rem; border-radius: 16px; border: none; cursor: pointer; font-weight: 600; box-shadow: var(--shadow-soft); transition: transform .15s ease, opacity .2s ease; text-decoration: none; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); opacity: .92; }
+    .btn-primary { background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: #fff; }
+    .btn-secondary { background: #eef6ef; color: var(--green-600); }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(245, 239, 227, 0.9); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 12px 0; }
+    .brand { display:flex; gap:.6rem; align-items:center; font-weight: 800; letter-spacing:.3px; color: var(--green-600); text-decoration: none; }
+    .brand i { font-size: 1.3rem; }
+    nav ul { list-style: none; display:flex; gap: 1rem; padding: 0; margin: 0; }
+    nav a { text-decoration: none; color: var(--text-700); font-weight: 600; padding:.45rem .7rem; border-radius: 10px; }
+    nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
+
+    /* Page Header */
+    .page-header { padding: 60px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center; }
+    .page-header h1 { font-size: 2.5rem; margin: 0 0 1rem; }
+    .page-header p { font-size: 1.2rem; opacity: 0.9; max-width: 60ch; margin: 0 auto; }
+
+    /* Contact Section */
+    .contact-section { padding: 60px 0; }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; }
+    
+    .contact-form { background: white; border-radius: 18px; padding: 40px; box-shadow: var(--shadow-soft); }
+    .contact-form h2 { color: var(--green-600); margin-bottom: 1.5rem; }
+    
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-700); }
+    input, select, textarea { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font: inherit; transition: border-color 0.2s ease; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green-600); }
+    textarea { min-height: 120px; resize: vertical; }
+    
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    
+    .contact-info { display: flex; flex-direction: column; gap: 24px; }
+    .info-card { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); }
+    .info-card h3 { color: var(--green-600); margin-bottom: 1rem; display: flex; align-items: center; gap: 12px; }
+    .info-card i { font-size: 1.5rem; }
+    .info-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .info-item i { color: var(--green-600); width: 20px; }
+    
+    .map-container { background: #f0f0f0; border-radius: 18px; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--text-700); }
+    
+    .success-message { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 16px; border-radius: 12px; margin-bottom: 20px; display: none; }
+    .success-message.show { display: block; }
+
+    /* FAQ Section */
+    .faq-section { padding: 60px 0; background: white; }
+    .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+    .faq-question { font-weight: 600; color: var(--brown-700); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { margin-top: 12px; color: var(--text-700); display: none; }
+    .faq-answer.show { display: block; }
+    .faq-toggle { color: var(--green-600); transition: transform 0.2s ease; }
+    .faq-toggle.rotate { transform: rotate(180deg); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Farm Langu home">
+        <i class="fa-solid fa-wheat-awn"></i>
+        <span>Farm Langu</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="farmers.html">For Farmers</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>Get in touch with our team. We're here to help you succeed.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form">
+          <h2>Send us a Message</h2>
+          
+          <div class="success-message" id="success-message">
+            <i class="fa-solid fa-check-circle"></i>
+            Thank you for your message! We'll get back to you within 24 hours.
+          </div>
+          
+          <form id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a topic</option>
+                <option value="general">General Inquiry</option>
+                <option value="farmer">Farmer Registration</option>
+                <option value="customer">Customer Support</option>
+                <option value="partnership">Partnership</option>
+                <option value="technical">Technical Issue</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fa-solid fa-paper-plane"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+          <div class="info-card">
+            <h3><i class="fa-solid fa-map-marker-alt"></i> Visit Us</h3>
+            <div class="info-item">
+              <i class="fa-solid fa-building"></i>
+              <div>
+                <strong>Farm Langu Headquarters</strong><br>
+                Nakuru, Kenya<br>
+                P.O. Box 12345-20100
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3><i class="fa-solid fa-phone"></i> Call Us</h3>
+            <div class="info-item">
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <strong>Customer Support</strong><br>
+                +254 700 123456
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-mobile-alt"></i>
+              <div>
+                <strong>Farmer Support</strong><br>
+                +254 701 234567
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3><i class="fa-solid fa-envelope"></i> Email Us</h3>
+            <div class="info-item">
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <strong>General Inquiries</strong><br>
+                hello@farmlangu.co.ke
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-user-tie"></i>
+              <div>
+                <strong>Business Partnerships</strong><br>
+                partners@farmlangu.co.ke
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3><i class="fa-solid fa-clock"></i> Business Hours</h3>
+            <div class="info-item">
+              <i class="fa-solid fa-calendar"></i>
+              <div>
+                <strong>Monday - Friday</strong><br>
+                8:00 AM - 6:00 PM
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-calendar-weekend"></i>
+              <div>
+                <strong>Saturday</strong><br>
+                9:00 AM - 4:00 PM
+              </div>
+            </div>
+          </div>
+
+          <div class="map-container">
+            <div style="text-align: center;">
+              <i class="fa-solid fa-map" style="font-size: 2rem; margin-bottom: 8px;"></i>
+              <p>Interactive Map Coming Soon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2rem; margin-bottom: 2rem;">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How do I register as a farmer on Farm Langu?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          Visit our "For Farmers" page and fill out the registration form. Our team will review your application and contact you within 24 hours to complete the verification process.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          What payment methods do you accept?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          We accept M-Pesa, credit/debit cards, and cash on delivery. All payments are secure and processed through trusted payment gateways.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How do you ensure product quality?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          All our farmers are verified and trained on quality standards. We conduct regular farm visits and quality checks to ensure only the best products reach our customers.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          What areas do you deliver to?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          We currently deliver to major towns and cities across Kenya. Delivery fees vary by location. Check our delivery areas during checkout for specific information.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How can I track my order?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          After placing an order, you'll receive SMS updates on your order status. You can also call our customer support line for real-time updates on your delivery.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px;">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;">
+      <div>
+        <strong>Farm Langu</strong> — Growing sustainably together.
+        <div style="margin-top:6px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
+      </div>
+      <div style="display:flex; gap: 10px;" aria-label="Social links">
+        <a href="#" aria-label="Facebook" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Handle form submission
+      const form = document.getElementById('contact-form');
+      const successMessage = document.getElementById('success-message');
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show success message
+        successMessage.classList.add('show');
+        form.reset();
+        
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+        }, 5000);
+      });
+    });
+
+    // FAQ Toggle Function
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const toggle = element.querySelector('.faq-toggle');
+      
+      // Close all other FAQs
+      document.querySelectorAll('.faq-answer').forEach(item => {
+        if (item !== answer) {
+          item.classList.remove('show');
+        }
+      });
+      
+      document.querySelectorAll('.faq-toggle').forEach(item => {
+        if (item !== toggle) {
+          item.classList.remove('rotate');
+        }
+      });
+      
+      // Toggle current FAQ
+      answer.classList.toggle('show');
+      toggle.classList.toggle('rotate');
+    }
+  </script>
+</body>
+</html>

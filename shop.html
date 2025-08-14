@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop - Farm Langu Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-98T0P7M8n9uF3dQ2fQh4wV3zEo7qvCjV0a8n6n0L0+0i1FJm6G2D2q9m0M3xS8Rr8zFzQKm7sJ2b4z5wW3H6dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --green-600: #2e7d32;
+      --green-500: #388e3c;
+      --green-400: #43a047;
+      --beige-50: #faf7f1;
+      --beige-100: #f5efe3;
+      --brown-700: #5d4037;
+      --text-900: #202420;
+      --text-700: #33443a;
+      --accent: #8bc34a;
+      --maxw: 1200px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+      --glass: rgba(255,255,255,0.22);
+      --glass-border: rgba(255,255,255,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text-900); background: linear-gradient(180deg, var(--beige-50), var(--beige-100));
+    }
+
+    /* Utility */
+    .container { width: min(100%, var(--maxw)); margin: 0 auto; padding: 0 18px; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.2rem; border-radius: 16px; border: none; cursor: pointer; font-weight: 600; box-shadow: var(--shadow-soft); transition: transform .15s ease, opacity .2s ease; text-decoration: none; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); opacity: .92; }
+    .btn-primary { background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: #fff; }
+    .btn-secondary { background: #eef6ef; color: var(--green-600); }
+    .tag { display:inline-block; padding:.35rem .7rem; border-radius: 999px; font-size:.78rem; background: #e9f5ea; color: var(--green-600); font-weight:600; text-transform: capitalize; }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(245, 239, 227, 0.9); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 12px 0; }
+    .brand { display:flex; gap:.6rem; align-items:center; font-weight: 800; letter-spacing:.3px; color: var(--green-600); text-decoration: none; }
+    .brand i { font-size: 1.3rem; }
+    nav ul { list-style: none; display:flex; gap: 1rem; padding: 0; margin: 0; }
+    nav a { text-decoration: none; color: var(--text-700); font-weight: 600; padding:.45rem .7rem; border-radius: 10px; }
+    nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
+
+    /* Cart Icon */
+    .cart-icon { position: relative; }
+    .cart-count { position: absolute; top: -8px; right: -8px; background: var(--green-600); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; }
+    .cart-dropdown { position: absolute; top: 100%; right: 0; background: white; border-radius: 16px; box-shadow: var(--shadow-soft); padding: 16px; width: 320px; max-height: 400px; overflow-y: auto; display: none; z-index: 100; }
+    .cart-dropdown.show { display: block; }
+    .cart-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #eee; }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item-image { width: 50px; height: 50px; object-fit: cover; border-radius: 8px; }
+    .cart-item-details { flex: 1; }
+    .cart-item-details h4 { margin: 0 0 4px; font-size: 0.9rem; }
+    .cart-item-details p { margin: 0; font-size: 0.8rem; color: var(--text-700); }
+    .quantity-controls { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .quantity-controls button { width: 24px; height: 24px; border: 1px solid #ddd; background: white; border-radius: 4px; cursor: pointer; }
+    .remove-item { background: none; border: none; color: #999; cursor: pointer; font-size: 1.2rem; }
+    .cart-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee; }
+    .empty-cart { text-align: center; color: var(--text-700); padding: 20px; }
+
+    /* Shop Header */
+    .shop-header { padding: 40px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; }
+    .shop-header h1 { font-size: 2.5rem; margin: 0 0 1rem; }
+    .shop-header p { font-size: 1.1rem; opacity: 0.9; max-width: 60ch; }
+
+    /* Filters */
+    .filters { padding: 24px 0; background: white; border-bottom: 1px solid rgba(0,0,0,.06); }
+    .filters-content { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .search-box { flex: 1; min-width: 250px; position: relative; }
+    .search-input { width: 100%; padding: 12px 16px 12px 40px; border: 1px solid #ddd; border-radius: 12px; font: inherit; }
+    .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; }
+    .category-filter { padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font: inherit; background: white; }
+
+    /* Products Grid */
+    .products-section { padding: 40px 0; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .product-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-soft); transition: transform 0.2s ease; }
+    .product-card:hover { transform: translateY(-4px); }
+    
+    .product-image { position: relative; overflow: hidden; }
+    .product-image img { width: 100%; height: 200px; object-fit: cover; }
+    .product-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; }
+    .product-image:hover .product-overlay { opacity: 1; }
+    
+    .product-content { padding: 18px; }
+    .product-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .rating { display: flex; align-items: center; gap: 4px; font-size: 0.9rem; }
+    .rating i { color: #ffc107; }
+    .product-content h3 { margin: 8px 0; font-size: 1.2rem; color: var(--brown-700); }
+    .product-description { color: var(--text-700); font-size: 0.9rem; margin: 8px 0; }
+    .farmer-info { display: flex; align-items: center; gap: 8px; margin: 12px 0; font-size: 0.9rem; color: var(--text-700); }
+    .farmer-info i { color: var(--green-600); }
+    .product-footer { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; }
+    .price { font-weight: 700; color: var(--green-600); font-size: 1.1rem; }
+    .stock { font-size: 0.8rem; color: var(--text-700); }
+    
+    .product-actions { display: flex; gap: 12px; align-items: center; margin-top: 16px; }
+    .quantity-selector { display: flex; align-items: center; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+    .quantity-selector button { width: 32px; height: 32px; border: none; background: #f8f9fa; cursor: pointer; }
+    .quantity-selector input { width: 50px; height: 32px; border: none; text-align: center; font: inherit; }
+    .add-to-cart { flex: 1; }
+
+    /* Notifications */
+    .notification { position: fixed; top: 20px; right: 20px; background: white; padding: 16px 20px; border-radius: 12px; box-shadow: var(--shadow-soft); display: flex; align-items: center; gap: 12px; z-index: 1000; animation: slideIn 0.3s ease; }
+    .notification-success { border-left: 4px solid var(--green-600); }
+    .notification-error { border-left: 4px solid #dc3545; }
+    .notification button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #999; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+    /* No products */
+    .no-products { text-align: center; padding: 60px 20px; color: var(--text-700); font-size: 1.1rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .shop-header h1 { font-size: 2rem; }
+      .filters-content { flex-direction: column; align-items: stretch; }
+      .search-box { min-width: auto; }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+      .product-actions { flex-direction: column; }
+      .quantity-selector { align-self: stretch; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Farm Langu home">
+        <i class="fa-solid fa-wheat-awn"></i>
+        <span>Farm Langu</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="farmers.html">For Farmers</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon">
+        <button class="btn btn-secondary cart-toggle" aria-label="Shopping cart">
+          <i class="fa-solid fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </button>
+        <div class="cart-dropdown">
+          <!-- Cart items will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Shop Header -->
+  <section class="shop-header">
+    <div class="container">
+      <h1>Farm Fresh Marketplace</h1>
+      <p>Discover fresh, organic produce directly from local farmers. Support sustainable agriculture while enjoying the best quality products.</p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters">
+    <div class="container">
+      <div class="filters-content">
+        <div class="search-box">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" class="search-input" placeholder="Search products, farmers, or locations...">
+        </div>
+        <select class="category-filter">
+          <option value="all">All Categories</option>
+          <option value="vegetables">Vegetables & Produce</option>
+          <option value="dairy">Dairy Products</option>
+          <option value="seeds">Seeds & Varieties</option>
+          <option value="seedlings">Seedlings & Plants</option>
+          <option value="inputs">Farm Inputs & Tools</option>
+          <option value="fruits">Fruits</option>
+          <option value="grains">Grains & Cereals</option>
+        </select>
+        <button class="btn btn-secondary" onclick="window.location.href='farmers.html'">
+          <i class="fa-solid fa-user-plus"></i>
+          Become a Seller
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products-section">
+    <div class="container">
+      <div class="products-grid" id="products-container">
+        <!-- Products will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px;">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;">
+      <div>
+        <strong>Farm Langu</strong> — Growing sustainably together.
+        <div style="margin-top:6px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
+      </div>
+      <div style="display:flex; gap: 10px;" aria-label="Social links">
+        <a href="#" aria-label="Facebook" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/ecommerce.js"></script>
+  <script>
+    // Initialize the shop page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Render all products initially
+      ecommerce.renderProducts();
+      
+      // Close cart dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        const cartIcon = document.querySelector('.cart-icon');
+        const cartDropdown = document.querySelector('.cart-dropdown');
+        
+        if (!cartIcon.contains(e.target)) {
+          cartDropdown.classList.remove('show');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

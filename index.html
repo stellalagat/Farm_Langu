@@ -141,11 +141,21 @@
       <nav>
         <ul>
           <li><a href="#story">Our Story</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#tips">Tips & Resources</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="farmers.html">For Farmers</a></li>
+          <li><a href="resources.html">Resources</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
+      <div class="cart-icon" style="position: relative;">
+        <button class="btn btn-secondary cart-toggle" aria-label="Shopping cart" style="position: relative;">
+          <i class="fa-solid fa-shopping-cart"></i>
+          <span class="cart-count" style="position: absolute; top: -8px; right: -8px; background: var(--green-600); color: white; border-radius: 50%; width: 20px; height: 20px; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">0</span>
+        </button>
+        <div class="cart-dropdown" style="position: absolute; top: 100%; right: 0; background: white; border-radius: 16px; box-shadow: var(--shadow-soft); padding: 16px; width: 320px; max-height: 400px; overflow-y: auto; display: none; z-index: 100;">
+          <!-- Cart items will be populated by JavaScript -->
+        </div>
+      </div>
     </div>
   </header>
 
@@ -157,8 +167,8 @@
         <h1 class="fade-up delay-1">Growing a Greener Future with <em>Farm Langu</em></h1>
         <p class="fade-up delay-2">We empower farmers with resources, quality inputs, and market access. Join our community committed to sustainable agriculture and prosperous livelihoods.</p>
         <div class="hero-cta fade-up delay-3">
-          <a href="#products" class="btn btn-primary"><i class="fa-solid fa-seedling"></i> Explore Products</a>
-          <a href="#tips" class="btn" style="background:#eef6ef;color:var(--green-600)"><i class="fa-solid fa-book-open"></i> Farming Tips</a>
+          <a href="shop.html" class="btn btn-primary"><i class="fa-solid fa-seedling"></i> Shop Now</a>
+          <a href="farmers.html" class="btn" style="background:#eef6ef;color:var(--green-600)"><i class="fa-solid fa-user-plus"></i> Sell Your Products</a>
         </div>
       </div>
       <div class="hero-figure fade-up delay-2" aria-hidden="true"></div>
@@ -352,17 +362,39 @@
         <div style="margin-top:6px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
       </div>
       <div class="socials" aria-label="Social links">
-        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://facebook.com/farmlangu" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://instagram.com/farmlangu" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://twitter.com/farmlangu" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://youtube.com/@farmlangu" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
   </footer>
 
+  <script src="js/ecommerce.js"></script>
   <script>
     // Update year automatically
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Close cart dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const cartIcon = document.querySelector('.cart-icon');
+      const cartDropdown = document.querySelector('.cart-dropdown');
+      
+      if (cartIcon && cartDropdown && !cartIcon.contains(e.target)) {
+        cartDropdown.style.display = 'none';
+      }
+    });
+    
+    // Cart toggle functionality
+    const cartToggle = document.querySelector('.cart-toggle');
+    if (cartToggle) {
+      cartToggle.addEventListener('click', function() {
+        const cartDropdown = document.querySelector('.cart-dropdown');
+        if (cartDropdown) {
+          cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout - Farm Langu Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-98T0P7M8n9uF3dQ2fQh4wV3zEo7qvCjV0a8n6n0L0+0i1FJm6G2D2q9m0M3xS8Rr8zFzQKm7sJ2b4z5wW3H6dQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --green-600: #2e7d32;
+      --green-500: #388e3c;
+      --green-400: #43a047;
+      --beige-50: #faf7f1;
+      --beige-100: #f5efe3;
+      --brown-700: #5d4037;
+      --text-900: #202420;
+      --text-700: #33443a;
+      --accent: #8bc34a;
+      --maxw: 1000px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text-900); background: linear-gradient(180deg, var(--beige-50), var(--beige-100));
+    }
+
+    .container { width: min(100%, var(--maxw)); margin: 0 auto; padding: 0 18px; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.2rem; border-radius: 16px; border: none; cursor: pointer; font-weight: 600; box-shadow: var(--shadow-soft); transition: transform .15s ease, opacity .2s ease; text-decoration: none; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); opacity: .92; }
+    .btn-primary { background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: #fff; }
+    .btn-secondary { background: #eef6ef; color: var(--green-600); }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(245, 239, 227, 0.9); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 12px 0; }
+    .brand { display:flex; gap:.6rem; align-items:center; font-weight: 800; letter-spacing:.3px; color: var(--green-600); text-decoration: none; }
+    .brand i { font-size: 1.3rem; }
+
+    /* Checkout */
+    .checkout-header { padding: 40px 0; text-align: center; }
+    .checkout-header h1 { font-size: 2.2rem; margin: 0 0 1rem; color: var(--brown-700); }
+    
+    .checkout-content { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; padding: 40px 0; }
+    
+    .checkout-form { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); }
+    .form-section { margin-bottom: 32px; }
+    .form-section h3 { margin: 0 0 16px; color: var(--green-600); font-size: 1.3rem; }
+    
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; color: var(--text-700); }
+    input, select, textarea { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font: inherit; transition: border-color 0.2s ease; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green-600); }
+    
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    
+    .payment-methods { display: grid; gap: 12px; }
+    .payment-method { display: flex; align-items: center; gap: 12px; padding: 16px; border: 2px solid #eee; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; }
+    .payment-method:hover { border-color: var(--green-400); }
+    .payment-method.selected { border-color: var(--green-600); background: #f8fff8; }
+    .payment-method input[type="radio"] { margin: 0; }
+    .payment-method i { font-size: 1.5rem; color: var(--green-600); }
+    
+    .order-summary { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); height: fit-content; }
+    .order-summary h3 { margin: 0 0 20px; color: var(--green-600); font-size: 1.3rem; }
+    
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .cart-item:last-child { border-bottom: none; }
+    .item-image { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+    .item-details { flex: 1; }
+    .item-details h4 { margin: 0 0 4px; font-size: 1rem; }
+    .item-details p { margin: 0; font-size: 0.9rem; color: var(--text-700); }
+    .item-price { font-weight: 600; color: var(--green-600); }
+    
+    .order-totals { margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; }
+    .total-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .total-row.final { font-size: 1.2rem; font-weight: 700; color: var(--green-600); border-top: 1px solid #eee; padding-top: 8px; margin-top: 12px; }
+    
+    .place-order { width: 100%; margin-top: 24px; font-size: 1.1rem; padding: 16px; }
+    
+    .empty-cart { text-align: center; padding: 60px 20px; color: var(--text-700); }
+    .empty-cart i { font-size: 4rem; margin-bottom: 16px; opacity: 0.5; }
+    
+    /* Success Message */
+    .success-message { background: white; border-radius: 18px; padding: 40px; box-shadow: var(--shadow-soft); text-align: center; display: none; }
+    .success-message.show { display: block; }
+    .success-message i { font-size: 4rem; color: var(--green-600); margin-bottom: 20px; }
+    .success-message h2 { color: var(--green-600); margin-bottom: 16px; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .checkout-content { grid-template-columns: 1fr; gap: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .checkout-form, .order-summary { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <i class="fa-solid fa-wheat-awn"></i>
+        <span>Farm Langu</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Checkout Header -->
+  <section class="checkout-header">
+    <div class="container">
+      <h1>Checkout</h1>
+      <p>Complete your order and support local farmers</p>
+    </div>
+  </section>
+
+  <!-- Checkout Content -->
+  <section class="checkout-content container" id="checkout-section">
+    <!-- Checkout Form -->
+    <div class="checkout-form">
+      <form id="checkout-form">
+        <!-- Customer Information -->
+        <div class="form-section">
+          <h3><i class="fa-solid fa-user"></i> Customer Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+
+        <!-- Delivery Information -->
+        <div class="form-section">
+          <h3><i class="fa-solid fa-truck"></i> Delivery Information</h3>
+          <div class="form-group">
+            <label for="address">Street Address *</label>
+            <input type="text" id="address" name="address" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City *</label>
+              <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+              <label for="county">County *</label>
+              <select id="county" name="county" required>
+                <option value="">Select County</option>
+                <option value="nairobi">Nairobi</option>
+                <option value="kiambu">Kiambu</option>
+                <option value="nakuru">Nakuru</option>
+                <option value="meru">Meru</option>
+                <option value="kisumu">Kisumu</option>
+                <option value="nyeri">Nyeri</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="deliveryNotes">Delivery Notes (Optional)</label>
+            <textarea id="deliveryNotes" name="deliveryNotes" rows="3" placeholder="Any special delivery instructions..."></textarea>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-section">
+          <h3><i class="fa-solid fa-credit-card"></i> Payment Method</h3>
+          <div class="payment-methods">
+            <label class="payment-method" for="mpesa">
+              <input type="radio" id="mpesa" name="paymentMethod" value="mpesa" required>
+              <i class="fa-solid fa-mobile-alt"></i>
+              <div>
+                <strong>M-Pesa</strong>
+                <p>Pay with your mobile money</p>
+              </div>
+            </label>
+            <label class="payment-method" for="card">
+              <input type="radio" id="card" name="paymentMethod" value="card">
+              <i class="fa-solid fa-credit-card"></i>
+              <div>
+                <strong>Credit/Debit Card</strong>
+                <p>Visa, Mastercard accepted</p>
+              </div>
+            </label>
+            <label class="payment-method" for="cod">
+              <input type="radio" id="cod" name="paymentMethod" value="cod">
+              <i class="fa-solid fa-money-bill"></i>
+              <div>
+                <strong>Cash on Delivery</strong>
+                <p>Pay when you receive your order</p>
+              </div>
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div id="cart-items">
+        <!-- Cart items will be populated here -->
+      </div>
+      <div class="order-totals">
+        <div class="total-row">
+          <span>Subtotal:</span>
+          <span id="subtotal">KES 0</span>
+        </div>
+        <div class="total-row">
+          <span>Delivery Fee:</span>
+          <span id="delivery-fee">KES 200</span>
+        </div>
+        <div class="total-row final">
+          <span>Total:</span>
+          <span id="total">KES 0</span>
+        </div>
+      </div>
+      <button type="submit" form="checkout-form" class="btn btn-primary place-order">
+        <i class="fa-solid fa-check"></i>
+        Place Order
+      </button>
+    </div>
+  </section>
+
+  <!-- Empty Cart Message -->
+  <div class="container empty-cart" id="empty-cart" style="display: none;">
+    <i class="fa-solid fa-shopping-cart"></i>
+    <h2>Your cart is empty</h2>
+    <p>Add some products to your cart before checking out.</p>
+    <a href="shop.html" class="btn btn-primary">
+      <i class="fa-solid fa-shopping-bag"></i>
+      Continue Shopping
+    </a>
+  </div>
+
+  <!-- Success Message -->
+  <div class="container success-message" id="success-message">
+    <i class="fa-solid fa-check-circle"></i>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for your order. We'll contact you shortly to confirm delivery details.</p>
+    <div style="margin-top: 24px; display: flex; gap: 16px; justify-content: center;">
+      <a href="shop.html" class="btn btn-secondary">Continue Shopping</a>
+      <a href="index.html" class="btn btn-primary">Back to Home</a>
+    </div>
+  </div>
+
+  <script src="js/ecommerce.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkoutSection = document.getElementById('checkout-section');
+      const emptyCartSection = document.getElementById('empty-cart');
+      const successMessage = document.getElementById('success-message');
+      const checkoutForm = document.getElementById('checkout-form');
+
+      // Check if cart is empty
+      if (ecommerce.cart.length === 0) {
+        checkoutSection.style.display = 'none';
+        emptyCartSection.style.display = 'block';
+        return;
+      }
+
+      // Populate cart items
+      function populateCartItems() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const subtotalElement = document.getElementById('subtotal');
+        const totalElement = document.getElementById('total');
+        
+        const cartHTML = ecommerce.cart.map(item => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" class="item-image">
+            <div class="item-details">
+              <h4>${item.name}</h4>
+              <p>Qty: ${item.quantity} × KES ${item.price.toLocaleString()}</p>
+              <small>From: ${item.farmer}</small>
+            </div>
+            <div class="item-price">
+              KES ${(item.price * item.quantity).toLocaleString()}
+            </div>
+          </div>
+        `).join('');
+
+        cartItemsContainer.innerHTML = cartHTML;
+
+        const subtotal = ecommerce.getCartTotal();
+        const deliveryFee = 200;
+        const total = subtotal + deliveryFee;
+
+        subtotalElement.textContent = `KES ${subtotal.toLocaleString()}`;
+        totalElement.textContent = `KES ${total.toLocaleString()}`;
+      }
+
+      // Handle payment method selection
+      function handlePaymentMethodSelection() {
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+          method.addEventListener('click', function() {
+            paymentMethods.forEach(m => m.classList.remove('selected'));
+            this.classList.add('selected');
+            this.querySelector('input[type="radio"]').checked = true;
+          });
+        });
+      }
+
+      // Handle form submission
+      checkoutForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(checkoutForm);
+        const orderData = {
+          customer: {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            phone: formData.get('phone')
+          },
+          delivery: {
+            address: formData.get('address'),
+            city: formData.get('city'),
+            county: formData.get('county'),
+            notes: formData.get('deliveryNotes')
+          },
+          paymentMethod: formData.get('paymentMethod')
+        };
+
+        // Process the order
+        const order = ecommerce.checkout(orderData);
+        
+        if (order) {
+          // Show success message
+          checkoutSection.style.display = 'none';
+          successMessage.classList.add('show');
+          
+          // Scroll to top
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      // Initialize
+      populateCartItems();
+      handlePaymentMethodSelection();
+    });
+  </script>
+</body>
+</html>
