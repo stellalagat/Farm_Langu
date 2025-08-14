@@ -20,8 +20,19 @@
       --text-900: #202420;
       --text-700: #33443a;
       --accent: #8bc34a;
-      --maxw: 1000px;
+      --accent-orange: #ff9800;
+      --accent-blue: #2196f3;
+      --accent-purple: #9c27b0;
+      --accent-red: #f44336;
+      --accent-teal: #009688;
+      --gradient-primary: linear-gradient(135deg, var(--green-600), var(--green-400));
+      --gradient-secondary: linear-gradient(135deg, var(--accent-orange), #ffb74d);
+      --gradient-tertiary: linear-gradient(135deg, var(--accent-blue), #64b5f6);
+      --gradient-quaternary: linear-gradient(135deg, var(--accent-purple), #ba68c8);
+      --maxw: 1200px;
       --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+      --glass: rgba(255,255,255,0.22);
+      --glass-border: rgba(255,255,255,0.35);
     }
 
     * { box-sizing: border-box; }
@@ -35,8 +46,10 @@
     .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 1.2rem; border-radius: 16px; border: none; cursor: pointer; font-weight: 600; box-shadow: var(--shadow-soft); transition: transform .15s ease, opacity .2s ease; text-decoration: none; }
     .btn:hover { transform: translateY(-2px); }
     .btn:active { transform: translateY(0); opacity: .92; }
-    .btn-primary { background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: #fff; }
+    .btn-primary { background: var(--gradient-primary); color: #fff; }
     .btn-secondary { background: #eef6ef; color: var(--green-600); }
+    .btn-orange { background: var(--gradient-secondary); color: white; }
+    .btn-blue { background: var(--gradient-tertiary); color: white; }
 
     /* Header */
     header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: rgba(245, 239, 227, 0.9); border-bottom: 1px solid rgba(0,0,0,.06); }
@@ -48,54 +61,449 @@
     nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
 
     /* Hero Section */
-    .farmer-hero { padding: 60px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center; }
-    .farmer-hero h1 { font-size: 2.5rem; margin: 0 0 1rem; }
-    .farmer-hero p { font-size: 1.2rem; opacity: 0.9; max-width: 60ch; margin: 0 auto 2rem; }
+    .farmer-hero { 
+      padding: 80px 0; 
+      background: linear-gradient(135deg, rgba(46, 125, 50, 0.95), rgba(67, 160, 71, 0.95)), 
+                  url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=1600&auto=format&fit=crop') center/cover;
+      color: white; 
+      text-align: center; 
+      position: relative;
+    }
+    .farmer-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,.2), rgba(0,0,0,0)); }
+    .farmer-hero .container { position: relative; z-index: 2; }
+    .farmer-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 1.5rem; line-height: 1.1; }
+    .farmer-hero p { font-size: clamp(1.1rem, 2.5vw, 1.3rem); opacity: 0.95; max-width: 70ch; margin: 0 auto 2.5rem; line-height: 1.6; }
+    .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .stat-card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; text-align: center; }
+    .stat-number { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .stat-label { font-size: 1rem; opacity: 0.9; }
 
     /* Benefits Section */
-    .benefits { padding: 60px 0; }
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px; }
-    .benefit-card { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center; }
-    .benefit-card i { font-size: 3rem; color: var(--green-600); margin-bottom: 16px; }
-    .benefit-card h3 { margin: 0 0 12px; color: var(--brown-700); }
+    .benefits { padding: 80px 0; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 50px; }
+    .benefit-card { 
+      background: white; 
+      border-radius: 24px; 
+      padding: 40px; 
+      box-shadow: var(--shadow-soft); 
+      text-align: center; 
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .benefit-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+    .benefit-card:nth-child(2)::before { background: var(--gradient-secondary); }
+    .benefit-card:nth-child(3)::before { background: var(--gradient-tertiary); }
+    .benefit-card:nth-child(4)::before { background: var(--gradient-quaternary); }
+    .benefit-card:nth-child(5)::before { background: linear-gradient(135deg, var(--accent-teal), #4db6ac); }
+    .benefit-card:nth-child(6)::before { background: linear-gradient(135deg, var(--accent-red), #ef5350); }
+    .benefit-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,.12); }
+    .benefit-card .icon-wrapper { 
+      width: 80px; 
+      height: 80px; 
+      background: var(--gradient-primary); 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      margin: 0 auto 24px; 
+    }
+    .benefit-card:nth-child(2) .icon-wrapper { background: var(--gradient-secondary); }
+    .benefit-card:nth-child(3) .icon-wrapper { background: var(--gradient-tertiary); }
+    .benefit-card:nth-child(4) .icon-wrapper { background: var(--gradient-quaternary); }
+    .benefit-card:nth-child(5) .icon-wrapper { background: linear-gradient(135deg, var(--accent-teal), #4db6ac); }
+    .benefit-card:nth-child(6) .icon-wrapper { background: linear-gradient(135deg, var(--accent-red), #ef5350); }
+    .benefit-card i { font-size: 2rem; color: white; }
+    .benefit-card h3 { margin: 0 0 16px; color: var(--brown-700); font-size: 1.4rem; }
+    .benefit-card p { color: var(--text-700); line-height: 1.6; margin: 0; }
+
+    /* Success Stories */
+    .success-stories { padding: 80px 0; background: white; }
+    .stories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px; margin-top: 50px; }
+    .story-card { 
+      background: var(--beige-50); 
+      border-radius: 24px; 
+      padding: 40px; 
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+    .story-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 4rem;
+      color: var(--green-600);
+      opacity: 0.3;
+      font-family: serif;
+    }
+    .farmer-info { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .farmer-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .farmer-details h4 { margin: 0; color: var(--brown-700); }
+    .farmer-details p { margin: 4px 0 0; color: var(--text-700); font-size: 0.9rem; }
+    .story-text { color: var(--text-700); line-height: 1.6; font-style: italic; margin-bottom: 20px; }
+    .story-stats { display: flex; gap: 24px; }
+    .story-stat { text-align: center; }
+    .story-stat-number { font-size: 1.5rem; font-weight: 700; color: var(--green-600); }
+    .story-stat-label { font-size: 0.8rem; color: var(--text-700); }
+
+    /* Pricing Section */
+    .pricing { padding: 80px 0; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 50px; }
+    .pricing-card { 
+      background: white; 
+      border-radius: 24px; 
+      padding: 40px; 
+      box-shadow: var(--shadow-soft); 
+      text-align: center;
+      position: relative;
+      border: 2px solid transparent;
+    }
+    .pricing-card.featured { 
+      border-color: var(--green-600); 
+      transform: scale(1.05);
+    }
+    .pricing-card.featured::before {
+      content: "Most Popular";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-primary);
+      color: white;
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .pricing-header h3 { margin: 0 0 8px; color: var(--brown-700); font-size: 1.5rem; }
+    .pricing-header p { margin: 0 0 24px; color: var(--text-700); }
+    .price { font-size: 3rem; font-weight: 700; color: var(--green-600); margin-bottom: 8px; }
+    .price-period { color: var(--text-700); font-size: 1rem; margin-bottom: 32px; }
+    .pricing-features { list-style: none; padding: 0; margin: 0 0 32px; }
+    .pricing-features li { 
+      padding: 8px 0; 
+      color: var(--text-700); 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+    }
+    .pricing-features i { color: var(--green-600); }
 
     /* Registration Form */
-    .registration { padding: 60px 0; background: white; }
-    .registration h2 { text-align: center; margin-bottom: 40px; color: var(--green-600); font-size: 2rem; }
-    .form-container { max-width: 600px; margin: 0 auto; background: var(--beige-50); border-radius: 18px; padding: 40px; box-shadow: var(--shadow-soft); }
+    .registration { padding: 80px 0; background: white; }
+    .registration h2 { text-align: center; margin-bottom: 20px; color: var(--green-600); font-size: 2.5rem; }
+    .registration .subtitle { text-align: center; color: var(--text-700); max-width: 60ch; margin: 0 auto 50px; font-size: 1.1rem; }
+    .form-container { max-width: 800px; margin: 0 auto; background: var(--beige-50); border-radius: 24px; padding: 50px; box-shadow: var(--shadow-soft); }
     
-    .form-group { margin-bottom: 20px; }
+    .form-section { margin-bottom: 40px; }
+    .form-section h3 { 
+      color: var(--green-600); 
+      margin-bottom: 24px; 
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .form-group { margin-bottom: 24px; }
     label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-700); }
-    input, select, textarea { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font: inherit; transition: border-color 0.2s ease; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green-600); }
+    input, select, textarea { 
+      width: 100%; 
+      padding: 16px 20px; 
+      border: 2px solid #e0e0e0; 
+      border-radius: 16px; 
+      font: inherit; 
+      transition: all 0.3s ease;
+      background: white;
+    }
+    input:focus, select:focus, textarea:focus { 
+      outline: none; 
+      border-color: var(--green-600); 
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    }
     
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     
     .file-upload { position: relative; display: inline-block; width: 100%; }
     .file-upload input[type="file"] { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
-    .file-upload-label { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border: 2px dashed #ddd; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; }
+    .file-upload-label { 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 12px; 
+      padding: 20px; 
+      border: 2px dashed #ddd; 
+      border-radius: 16px; 
+      cursor: pointer; 
+      transition: all 0.3s ease;
+      background: white;
+    }
     .file-upload-label:hover { border-color: var(--green-600); background: #f8fff8; }
     
     .checkbox-group { display: flex; align-items: flex-start; gap: 12px; }
-    .checkbox-group input[type="checkbox"] { margin-top: 4px; }
+    .checkbox-group input[type="checkbox"] { margin-top: 4px; transform: scale(1.2); }
     
     /* Success Message */
-    .success-message { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 16px; border-radius: 12px; margin-bottom: 20px; display: none; }
+    .success-message { 
+      background: linear-gradient(135deg, #d4edda, #c3e6cb); 
+      border: 1px solid #c3e6cb; 
+      color: #155724; 
+      padding: 20px; 
+      border-radius: 16px; 
+      margin-bottom: 24px; 
+      display: none;
+      box-shadow: var(--shadow-soft);
+    }
     .success-message.show { display: block; }
 
     /* How it Works */
-    .how-it-works { padding: 60px 0; }
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin-top: 40px; }
-    .step { text-align: center; }
-    .step-number { width: 60px; height: 60px; background: var(--green-600); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 16px; }
-    .step h3 { margin: 0 0 12px; color: var(--brown-700); }
+    .how-it-works { padding: 80px 0; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
+    .step { 
+      text-align: center; 
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease;
+    }
+    .step:hover { transform: translateY(-8px); }
+    .step-number { 
+      width: 80px; 
+      height: 80px; 
+      background: var(--gradient-primary); 
+      color: white; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 2rem; 
+      font-weight: bold; 
+      margin: 0 auto 24px; 
+    }
+    .step:nth-child(2) .step-number { background: var(--gradient-secondary); }
+    .step:nth-child(3) .step-number { background: var(--gradient-tertiary); }
+    .step:nth-child(4) .step-number { background: var(--gradient-quaternary); }
+    .step h3 { margin: 0 0 16px; color: var(--brown-700); font-size: 1.3rem; }
+    .step p { color: var(--text-700); line-height: 1.6; margin: 0; }
+
+    /* FAQ Section */
+    .faq { padding: 80px 0; background: white; }
+    .faq-list { max-width: 800px; margin: 50px auto 0; }
+    .faq-item { 
+      background: var(--beige-50); 
+      border-radius: 16px; 
+      margin-bottom: 16px; 
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+    .faq-question { 
+      padding: 24px; 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      font-weight: 600;
+      color: var(--brown-700);
+      transition: background 0.3s ease;
+    }
+    .faq-question:hover { background: rgba(46, 125, 50, 0.05); }
+    .faq-answer { 
+      padding: 0 24px 24px; 
+      color: var(--text-700); 
+      line-height: 1.6;
+      display: none;
+    }
+    .faq-item.active .faq-answer { display: block; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+    .faq-question i { transition: transform 0.3s ease; }
+
+    /* Support Section */
+    .support { padding: 80px 0; }
+    .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 50px; }
+    .support-card { 
+      background: white; 
+      border-radius: 24px; 
+      padding: 40px; 
+      box-shadow: var(--shadow-soft); 
+      text-align: center;
+    }
+    .support-icon { 
+      width: 80px; 
+      height: 80px; 
+      background: var(--gradient-primary); 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      margin: 0 auto 24px; 
+    }
+    .support-card:nth-child(2) .support-icon { background: var(--gradient-secondary); }
+    .support-card:nth-child(3) .support-icon { background: var(--gradient-tertiary); }
+    .support-icon i { font-size: 2rem; color: white; }
+    .support-card h3 { margin: 0 0 16px; color: var(--brown-700); }
+    .support-card p { color: var(--text-700); line-height: 1.6; margin-bottom: 24px; }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(37, 211, 102, 0.6); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    /* Animation classes */
+    .animate-fade-in { animation: fadeInUp 0.8s ease-out; }
+    .animate-slide-left { animation: slideInLeft 0.8s ease-out; }
+    .animate-slide-right { animation: slideInRight 0.8s ease-out; }
+    
+    /* Social media hover effects */
+    footer a[aria-label="Facebook"]:hover { background: #0d47a1 !important; transform: translateY(-3px); }
+    footer a[aria-label="Instagram"]:hover { background: #c13584 !important; transform: translateY(-3px); }
+    footer a[aria-label="Twitter"]:hover { background: #0d8bd9 !important; transform: translateY(-3px); }
+    footer a[aria-label="YouTube"]:hover { background: #cc0000 !important; transform: translateY(-3px); }
+    footer a[aria-label="WhatsApp"]:hover { background: #128c7e !important; transform: translateY(-3px); }
+    footer a[aria-label="LinkedIn"]:hover { background: #005885 !important; transform: translateY(-3px); }
+    
+    /* Floating WhatsApp Button */
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      transition: all 0.3s ease;
+      animation: pulse 3s infinite;
+    }
+    
+    .floating-whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+    }
+    
+    .floating-whatsapp i {
+      font-size: 1.5rem;
+    }
+    
+    .floating-whatsapp::before {
+      content: "Chat with us!";
+      position: absolute;
+      right: 70px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .floating-whatsapp:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
 
     /* Responsive */
     @media (max-width: 768px) {
       .farmer-hero h1 { font-size: 2rem; }
       .form-row { grid-template-columns: 1fr; }
-      .form-container { padding: 24px; }
+      .form-container { padding: 30px; }
       .benefits-grid { grid-template-columns: 1fr; gap: 24px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .pricing-card.featured { transform: none; }
+      .container { padding: 0 16px; }
+      
+      /* Mobile header images */
+      div[style*="grid-template-columns: 1fr 400px"] { grid-template-columns: 1fr !important; }
+      div[style*="grid-template-columns: 350px 1fr"] { grid-template-columns: 1fr !important; }
+      div[style*="grid-template-columns: 1fr 350px"] { grid-template-columns: 1fr !important; }
+      
+      /* Mobile navigation */
+      nav ul { flex-direction: column; gap: 0.5rem; }
+      .nav { flex-direction: column; gap: 1rem; }
+      
+      /* Mobile hero buttons */
+      .farmer-hero a { margin: 0.5rem 0; display: block; text-align: center; }
+      
+      /* Mobile form sections */
+      .form-section h3 { font-size: 1.2rem; }
+      
+      /* Mobile support grid */
+      .support-grid { grid-template-columns: 1fr; }
+      
+      /* Mobile social icons */
+      footer div[style*="display:flex; gap: 16px"] { justify-content: center; gap: 12px !important; }
+      footer a[aria-label="Facebook"], footer a[aria-label="Instagram"], footer a[aria-label="Twitter"], 
+      footer a[aria-label="YouTube"], footer a[aria-label="WhatsApp"], footer a[aria-label="LinkedIn"] {
+        width: 45px !important; height: 45px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { grid-template-columns: 1fr; }
+      .stories-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      
+      /* Very small screens */
+      .farmer-hero { padding: 60px 0; }
+      .benefits, .success-stories, .pricing, .how-it-works, .faq, .support { padding: 60px 0; }
+      
+      /* Mobile typography */
+      h2 { font-size: 2rem !important; }
+      h3 { font-size: 1.3rem !important; }
+      
+      /* Mobile cards */
+      .benefit-card, .story-card, .pricing-card, .step, .support-card { padding: 24px; }
+      
+      /* Mobile form */
+      .form-container { padding: 20px; }
+      .registration h2 { font-size: 2rem; }
+      
+      /* Mobile floating WhatsApp */
+      .floating-whatsapp {
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 55px !important;
+        height: 55px !important;
+      }
+      
+      .floating-whatsapp::before {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -123,51 +531,411 @@
   <!-- Hero Section -->
   <section class="farmer-hero">
     <div class="container">
-      <h1>Sell Your Farm Products Online</h1>
-      <p>Join thousands of farmers who are growing their income by selling directly to customers through our platform. No middlemen, better prices, wider reach.</p>
-      <a href="#register" class="btn" style="background: white; color: var(--green-600); font-size: 1.1rem; padding: 1rem 2rem;">
+      <h1>Transform Your Farm Into a Thriving Business</h1>
+      <p>Join thousands of farmers who are growing their income by selling directly to customers through our platform. No middlemen, better prices, wider reach, and access to modern farming technology.</p>
+      <a href="#register" class="btn" style="background: white; color: var(--green-600); font-size: 1.2rem; padding: 1.2rem 2.5rem; margin-right: 1rem;">
         <i class="fa-solid fa-user-plus"></i>
         Start Selling Today
       </a>
+      <a href="#success-stories" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; font-size: 1.1rem; padding: 1.1rem 2rem;">
+        <i class="fa-solid fa-star"></i>
+        Success Stories
+      </a>
+      
+      <!-- Hero Stats -->
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-number">2,500+</div>
+          <div class="stat-label">Active Farmers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">KES 50M+</div>
+          <div class="stat-label">Total Earnings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15,000+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">47</div>
+          <div class="stat-label">Counties Served</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Benefits Section -->
   <section class="benefits">
     <div class="container">
-      <h2 style="text-align: center; color: var(--green-600); font-size: 2rem; margin-bottom: 1rem;">Why Sell With Farm Langu?</h2>
-      <p style="text-align: center; color: var(--text-700); max-width: 60ch; margin: 0 auto;">We provide everything you need to succeed in online farming business</p>
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Why Choose Farm Langu?</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto; font-size: 1.1rem;">We provide everything you need to succeed in modern farming and online business</p>
+      
+      <!-- Benefits Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin: 40px 0; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 1fr 400px; gap: 40px; align-items: center;">
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-rocket"></i> Transform Your Farming Business
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Join the agricultural revolution with Farm Langu. We combine traditional farming wisdom with cutting-edge technology to help you maximize profits, reduce costs, and reach customers nationwide.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #f8fff8; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--green-600); margin: 0 0 8px;">Direct Sales</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">No middlemen</p>
+              </div>
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Smart Tech</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Modern farming tools</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=400&auto=format&fit=crop" 
+                 alt="Modern farming success" 
+                 style="width: 100%; height: 280px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+        </div>
+      </div>
       
       <div class="benefits-grid">
         <div class="benefit-card">
-          <i class="fa-solid fa-hand-holding-dollar"></i>
-          <h3>Better Prices</h3>
-          <p>Sell directly to customers and earn up to 40% more than traditional markets. No middlemen taking your profits.</p>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <h3>Higher Profits</h3>
+          <p>Sell directly to customers and earn up to 40% more than traditional markets. No middlemen taking your hard-earned profits.</p>
         </div>
         <div class="benefit-card">
-          <i class="fa-solid fa-globe"></i>
-          <h3>Wider Reach</h3>
-          <p>Access customers across Kenya through our online platform. Expand beyond your local market.</p>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <h3>National Reach</h3>
+          <p>Access customers across all 47 counties through our online platform. Expand beyond your local market limitations.</p>
         </div>
         <div class="benefit-card">
-          <i class="fa-solid fa-truck"></i>
-          <h3>Easy Delivery</h3>
-          <p>We handle logistics and delivery to customers. Focus on farming while we handle the rest.</p>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-truck"></i>
+          </div>
+          <h3>Logistics Support</h3>
+          <p>We handle packaging, delivery, and customer service. Focus on farming while we handle the business operations.</p>
         </div>
         <div class="benefit-card">
-          <i class="fa-solid fa-mobile-alt"></i>
-          <h3>Mobile Payments</h3>
-          <p>Get paid instantly through M-Pesa and other mobile payment platforms. No waiting for cash.</p>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-mobile-alt"></i>
+          </div>
+          <h3>Instant Payments</h3>
+          <p>Get paid instantly through M-Pesa, Airtel Money, and bank transfers. No waiting weeks for your money.</p>
         </div>
         <div class="benefit-card">
-          <i class="fa-solid fa-chart-line"></i>
-          <h3>Sales Analytics</h3>
-          <p>Track your sales, popular products, and customer feedback to grow your business.</p>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3>Business Analytics</h3>
+          <p>Track sales, popular products, customer feedback, and seasonal trends to optimize your farming business.</p>
         </div>
         <div class="benefit-card">
-          <i class="fa-solid fa-headset"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-headset"></i>
+          </div>
           <h3>24/7 Support</h3>
-          <p>Our team is always ready to help you succeed. Get support whenever you need it.</p>
+          <p>Our dedicated farmer support team is available round the clock to help you succeed and grow your business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Showcase -->
+  <section style="padding: 80px 0; background: linear-gradient(135deg, #f8fff8, #e8f5e8);">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Smart Farming Technology</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto 50px; font-size: 1.1rem;">Access cutting-edge agricultural technology to optimize your farm operations</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=300&auto=format&fit=crop" 
+               alt="Smart irrigation system" 
+               style="width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;">
+          <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+            <i class="fa-solid fa-tint" style="font-size: 1.5rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 12px;">Smart Irrigation</h3>
+          <p style="color: var(--text-700); line-height: 1.6;">Automated watering systems that save up to 40% water while increasing yields.</p>
+        </div>
+        
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=300&auto=format&fit=crop" 
+               alt="Drone crop monitoring" 
+               style="width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;">
+          <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+            <i class="fa-solid fa-drone" style="font-size: 1.5rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 12px;">Drone Monitoring</h3>
+          <p style="color: var(--text-700); line-height: 1.6;">Aerial crop monitoring and precision spraying for optimal plant health.</p>
+        </div>
+        
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=300&auto=format&fit=crop" 
+               alt="IoT sensors and smart farming devices in field" 
+               style="width: 100%; height: 180px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;">
+          <div style="width: 60px; height: 60px; background: var(--gradient-tertiary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+            <i class="fa-solid fa-microchip" style="font-size: 1.5rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 12px;">IoT Sensors</h3>
+          <p style="color: var(--text-700); line-height: 1.6;">Real-time soil moisture, pH, and nutrient monitoring for data-driven decisions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories -->
+  <section class="success-stories" id="success-stories">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Farmer Success Stories</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto; font-size: 1.1rem;">Real farmers, real results. See how Farm Langu has transformed lives across Kenya</p>
+      
+      <div class="stories-grid">
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?q=80&w=600&auto=format&fit=crop" 
+               alt="John's tomato greenhouse" 
+               style="width: 100%; height: 150px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;">
+          <div class="farmer-info">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" alt="John Mwangi" class="farmer-avatar">
+            <div class="farmer-details">
+              <h4>John Mwangi</h4>
+              <p>Tomato Farmer, Kiambu County</p>
+            </div>
+          </div>
+          <p class="story-text">
+            "Before Farm Langu, I was selling my tomatoes to middlemen for KES 30 per kg. Now I sell directly to customers for KES 80 per kg. My monthly income has tripled, and I've been able to expand my greenhouse operation."
+          </p>
+          <div class="story-stats">
+            <div class="story-stat">
+              <div class="story-stat-number">300%</div>
+              <div class="story-stat-label">Income Increase</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-number">2 Years</div>
+              <div class="story-stat-label">With Farm Langu</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-number">500+</div>
+              <div class="story-stat-label">Happy Customers</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=600&auto=format&fit=crop" 
+               alt="Mary's dairy farm" 
+               style="width: 100%; height: 150px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;">
+          <div class="farmer-info">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=100&auto=format&fit=crop" alt="Mary Wanjiku" class="farmer-avatar">
+            <div class="farmer-details">
+              <h4>Mary Wanjiku</h4>
+              <p>Dairy Farmer, Nakuru County</p>
+            </div>
+          </div>
+          <p class="story-text">
+            "Farm Langu helped me start selling fresh milk and yogurt online. The smart farming technology they provided improved my cow's health monitoring. I now serve over 200 families with fresh dairy products daily."
+          </p>
+          <div class="story-stats">
+            <div class="story-stat">
+              <div class="story-stat-number">KES 150K</div>
+              <div class="story-stat-label">Monthly Revenue</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-number">18 Months</div>
+              <div class="story-stat-label">With Farm Langu</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-number">200+</div>
+              <div class="story-stat-label">Regular Customers</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=600&auto=format&fit=crop" 
+               alt="Peter's vegetable farm" 
+               style="width: 100%; height: 150px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;">
+          <div class="farmer-info">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop" alt="Peter Kimani" class="farmer-avatar">
+            <div class="farmer-details">
+              <h4>Peter Kimani</h4>
+              <p>Vegetable Farmer, Meru County</p>
+            </div>
+          </div>
+          <p class="story-text">
+            "The drip irrigation system from Farm Langu reduced my water usage by 60% while increasing my vegetable yields. I now grow year-round and supply fresh vegetables to hotels and restaurants in Nairobi."
+          </p>
+          <div class="story-stats">
+            <div class="story-stat">
+              <div class="story-stat-number">60%</div>
+              <div class="story-stat-label">Water Savings</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-number">3 Years</div>
+              <div class="story-stat-label">With Farm Langu</div>
+            </div>
+            <div class="story-stat">
+              <div class="story-stat-number">25+</div>
+              <div class="story-stat-label">Business Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market Insights Section -->
+  <section style="padding: 80px 0; background: linear-gradient(135deg, #e3f2fd, #f3e5f5);">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Market Insights & Analytics</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto 50px; font-size: 1.1rem;">Make data-driven decisions with real-time market intelligence</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <div style="width: 80px; height: 80px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <i class="fa-solid fa-chart-line" style="font-size: 2rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 16px;">Price Trends</h3>
+          <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">Track commodity prices across different markets and seasons to optimize your selling strategy.</p>
+          <div style="background: #f8fff8; padding: 16px; border-radius: 12px;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--green-600);">+15%</div>
+            <div style="font-size: 0.9rem; color: var(--text-700);">Average price increase</div>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <div style="width: 80px; height: 80px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <i class="fa-solid fa-users" style="font-size: 2rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 16px;">Customer Demand</h3>
+          <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">Understand what customers want and when they want it to plan your production cycles.</p>
+          <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">85%</div>
+            <div style="font-size: 0.9rem; color: var(--text-700);">Demand prediction accuracy</div>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <div style="width: 80px; height: 80px; background: var(--gradient-tertiary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <i class="fa-solid fa-map-marked-alt" style="font-size: 2rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 16px;">Regional Analysis</h3>
+          <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">Compare performance across different regions and identify the best markets for your products.</p>
+          <div style="background: #e3f2fd; padding: 16px; border-radius: 12px;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue);">47</div>
+            <div style="font-size: 0.9rem; color: var(--text-700);">Counties covered</div>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center;">
+          <div style="width: 80px; height: 80px; background: var(--gradient-quaternary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <i class="fa-solid fa-calendar-alt" style="font-size: 2rem; color: white;"></i>
+          </div>
+          <h3 style="color: var(--brown-700); margin-bottom: 16px;">Seasonal Planning</h3>
+          <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">Get recommendations on what to plant and when based on weather patterns and market demand.</p>
+          <div style="background: #f3e5f5; padding: 16px; border-radius: 12px;">
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-purple);">92%</div>
+            <div style="font-size: 0.9rem; color: var(--text-700);">Planning accuracy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Simple, Transparent Pricing</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto; font-size: 1.1rem;">Choose the plan that fits your farming business needs</p>
+      
+      <!-- Pricing Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin: 40px 0; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 350px 1fr; gap: 40px; align-items: center;">
+          <div>
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=400&auto=format&fit=crop" 
+                 alt="Farming business growth" 
+                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-chart-bar"></i> Grow Your Business at Your Own Pace
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Start free and scale up as your business grows. Our flexible pricing ensures you only pay for what you need, when you need it. No hidden fees, no long-term contracts.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #f8fff8; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--green-600); margin: 0 0 8px;">Free Start</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">No setup costs</p>
+              </div>
+              <div style="background: #e3f2fd; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-blue); margin: 0 0 8px;">Scale Up</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Upgrade anytime</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Starter</h3>
+            <p>Perfect for small-scale farmers</p>
+          </div>
+          <div class="price">Free</div>
+          <div class="price-period">Forever</div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> List up to 5 products</li>
+            <li><i class="fa-solid fa-check"></i> Basic sales analytics</li>
+            <li><i class="fa-solid fa-check"></i> M-Pesa payments</li>
+            <li><i class="fa-solid fa-check"></i> Email support</li>
+            <li><i class="fa-solid fa-check"></i> Mobile app access</li>
+          </ul>
+          <a href="#register" class="btn btn-secondary" style="width: 100%;">Get Started Free</a>
+        </div>
+        
+        <div class="pricing-card featured">
+          <div class="pricing-header">
+            <h3>Professional</h3>
+            <p>For growing farming businesses</p>
+          </div>
+          <div class="price">KES 2,500</div>
+          <div class="price-period">per month</div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Unlimited products</li>
+            <li><i class="fa-solid fa-check"></i> Advanced analytics & reports</li>
+            <li><i class="fa-solid fa-check"></i> All payment methods</li>
+            <li><i class="fa-solid fa-check"></i> Priority support</li>
+            <li><i class="fa-solid fa-check"></i> Smart farming tools access</li>
+            <li><i class="fa-solid fa-check"></i> Bulk order management</li>
+            <li><i class="fa-solid fa-check"></i> Customer database</li>
+          </ul>
+          <a href="#register" class="btn btn-primary" style="width: 100%;">Start Professional</a>
+        </div>
+        
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Enterprise</h3>
+            <p>For large-scale operations</p>
+          </div>
+          <div class="price">KES 5,000</div>
+          <div class="price-period">per month</div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Everything in Professional</li>
+            <li><i class="fa-solid fa-check"></i> Dedicated account manager</li>
+            <li><i class="fa-solid fa-check"></i> Custom integrations</li>
+            <li><i class="fa-solid fa-check"></i> White-label solutions</li>
+            <li><i class="fa-solid fa-check"></i> API access</li>
+            <li><i class="fa-solid fa-check"></i> Advanced automation</li>
+            <li><i class="fa-solid fa-check"></i> Training & consultation</li>
+          </ul>
+          <a href="#register" class="btn btn-orange" style="width: 100%;">Contact Sales</a>
         </div>
       </div>
     </div>
@@ -176,161 +944,350 @@
   <!-- How It Works -->
   <section class="how-it-works" style="background: white;">
     <div class="container">
-      <h2 style="text-align: center; color: var(--green-600); font-size: 2rem; margin-bottom: 1rem;">How It Works</h2>
-      <p style="text-align: center; color: var(--text-700); max-width: 60ch; margin: 0 auto;">Simple steps to start selling your products online</p>
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">How It Works</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto; font-size: 1.1rem;">Four simple steps to transform your farming business</p>
       
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
-          <h3>Register</h3>
-          <p>Fill out our simple registration form with your farm details and contact information.</p>
+          <h3>Register Your Farm</h3>
+          <p>Complete our comprehensive registration form with your farm details, products, and business information. Our team will verify and approve your account within 24 hours.</p>
         </div>
         <div class="step">
           <div class="step-number">2</div>
-          <h3>Add Products</h3>
-          <p>Upload photos and descriptions of your products. Set your prices and stock levels.</p>
+          <h3>Set Up Your Store</h3>
+          <p>Upload high-quality photos of your products, write compelling descriptions, set competitive prices, and manage your inventory through our user-friendly dashboard.</p>
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <h3>Receive Orders</h3>
-          <p>Get notified when customers place orders. Prepare your products for delivery.</p>
+          <h3>Receive & Fulfill Orders</h3>
+          <p>Get instant notifications when customers place orders. Prepare your fresh products according to our quality standards and hand them over to our logistics partners.</p>
         </div>
         <div class="step">
           <div class="step-number">4</div>
-          <h3>Get Paid</h3>
-          <p>Receive payments directly to your mobile money account after successful delivery.</p>
+          <h3>Get Paid & Grow</h3>
+          <p>Receive payments directly to your mobile money account after successful delivery. Use our analytics to understand your customers and grow your business strategically.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Frequently Asked Questions</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto; font-size: 1.1rem;">Get answers to common questions about joining Farm Langu</p>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How much does it cost to join Farm Langu?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Joining Farm Langu is completely free! We offer a free Starter plan that allows you to list up to 5 products and start selling immediately. As your business grows, you can upgrade to our Professional or Enterprise plans for additional features and support.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do I receive payments from customers?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We support multiple payment methods including M-Pesa, Airtel Money, bank transfers, and mobile banking. Payments are processed automatically and sent directly to your registered mobile money account or bank account within 24 hours of successful delivery.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Do you provide delivery services?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! We have partnerships with reliable logistics companies across Kenya to handle pickup from your farm and delivery to customers. You just need to prepare your products according to our packaging guidelines, and we'll handle the rest.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What types of products can I sell?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>You can sell fresh produce (fruits, vegetables, herbs), dairy products, eggs, grains, legumes, processed foods, and other agricultural products. All products must meet our quality standards and food safety requirements.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How do you ensure product quality?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We have strict quality control measures including farm inspections, product sampling, customer feedback systems, and quality ratings. Our team provides training on proper harvesting, handling, and packaging to maintain high standards.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I get help with modern farming techniques?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutely! We provide access to smart farming technology, training programs, agricultural experts, and resources to help you improve your farming practices, increase yields, and reduce costs. This includes irrigation systems, crop monitoring, and precision farming tools.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section style="padding: 80px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center;">
+    <div class="container">
+      <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: white;">Ready to Transform Your Farm?</h2>
+      <p style="font-size: 1.2rem; opacity: 0.95; max-width: 60ch; margin: 0 auto 2rem; line-height: 1.6;">
+        Join thousands of successful farmers who have already transformed their businesses with Farm Langu. Start your journey today!
+      </p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 3rem 0;">
+        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 2rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">Free</div>
+          <div style="opacity: 0.9;">to get started</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 2rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">24hrs</div>
+          <div style="opacity: 0.9;">account approval</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 2rem;">
+          <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">24/7</div>
+          <div style="opacity: 0.9;">support available</div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 2rem;">
+        <a href="#register-form" class="btn" style="background: white; color: var(--green-600); font-size: 1.2rem; padding: 1.2rem 2.5rem; margin-right: 1rem;">
+          <i class="fa-solid fa-arrow-down"></i>
+          Register Now
+        </a>
+        <a href="tel:+254700000000" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; font-size: 1.1rem; padding: 1.1rem 2rem;">
+          <i class="fa-solid fa-phone"></i>
+          Call Us: +254 700 000 000
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Registration Form -->
   <section class="registration" id="register">
-    <div class="container">
-      <h2>Join Our Farming Community</h2>
+    <div class="container" id="register-form">
+      <h2>Join Our Farming Community Today</h2>
+      <p class="subtitle">Complete the form below to start your journey towards a more profitable and sustainable farming business</p>
       
       <div class="form-container">
         <div class="success-message" id="success-message">
           <i class="fa-solid fa-check-circle"></i>
-          Registration successful! We'll contact you within 24 hours to verify your account.
+          <strong>Registration Successful!</strong> Welcome to Farm Langu! We'll contact you within 24 hours to verify your account and help you get started.
         </div>
         
         <form id="farmer-registration-form">
           <!-- Personal Information -->
-          <h3 style="color: var(--green-600); margin-bottom: 20px;">
-            <i class="fa-solid fa-user"></i> Personal Information
-          </h3>
-          
-          <div class="form-row">
-            <div class="form-group">
-              <label for="firstName">First Name *</label>
-              <input type="text" id="firstName" name="firstName" required>
+          <div class="form-section">
+            <h3>
+              <i class="fa-solid fa-user"></i> Personal Information
+            </h3>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="lastName">Last Name *</label>
-              <input type="text" id="lastName" name="lastName" required>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+              </div>
             </div>
-          </div>
-          
-          <div class="form-row">
+            
             <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" name="phone" required>
+              <label for="idNumber">National ID Number *</label>
+              <input type="text" id="idNumber" name="idNumber" required>
             </div>
           </div>
 
           <!-- Farm Information -->
-          <h3 style="color: var(--green-600); margin: 32px 0 20px;">
-            <i class="fa-solid fa-seedling"></i> Farm Information
-          </h3>
-          
-          <div class="form-group">
-            <label for="farmName">Farm Name *</label>
-            <input type="text" id="farmName" name="farmName" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="farmLocation">Farm Location *</label>
-            <input type="text" id="farmLocation" name="farmLocation" placeholder="County, Town/Area" required>
-          </div>
-          
-          <div class="form-row">
+          <div class="form-section">
+            <h3>
+              <i class="fa-solid fa-seedling"></i> Farm Information
+            </h3>
+            
             <div class="form-group">
-              <label for="farmSize">Farm Size (Acres)</label>
-              <input type="number" id="farmSize" name="farmSize" min="0" step="0.1">
+              <label for="farmName">Farm Name *</label>
+              <input type="text" id="farmName" name="farmName" required>
             </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="county">County *</label>
+                <select id="county" name="county" required>
+                  <option value="">Select County</option>
+                  <option value="nairobi">Nairobi</option>
+                  <option value="kiambu">Kiambu</option>
+                  <option value="nakuru">Nakuru</option>
+                  <option value="meru">Meru</option>
+                  <option value="murang'a">Murang'a</option>
+                  <option value="nyeri">Nyeri</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="farmLocation">Specific Location *</label>
+                <input type="text" id="farmLocation" name="farmLocation" placeholder="Town/Area/Village" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="farmSize">Farm Size (Acres) *</label>
+                <input type="number" id="farmSize" name="farmSize" min="0" step="0.1" required>
+              </div>
+              <div class="form-group">
+                <label for="experience">Years of Experience *</label>
+                <input type="number" id="experience" name="experience" min="0" required>
+              </div>
+            </div>
+            
             <div class="form-group">
-              <label for="experience">Years of Experience</label>
-              <input type="number" id="experience" name="experience" min="0">
+              <label for="products">What do you grow/produce? *</label>
+              <textarea id="products" name="products" rows="4" placeholder="e.g., Tomatoes, Maize, Dairy products, Eggs, Kales, Carrots..." required></textarea>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="products">What do you grow/produce? *</label>
-            <textarea id="products" name="products" rows="3" placeholder="e.g., Tomatoes, Maize, Dairy products, Eggs..." required></textarea>
-          </div>
-          
-          <div class="form-group">
-            <label for="farmingType">Farming Type</label>
-            <select id="farmingType" name="farmingType">
-              <option value="">Select farming type</option>
-              <option value="organic">Organic</option>
-              <option value="conventional">Conventional</option>
-              <option value="mixed">Mixed</option>
-            </select>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="farmingType">Farming Type *</label>
+                <select id="farmingType" name="farmingType" required>
+                  <option value="">Select farming type</option>
+                  <option value="organic">Organic</option>
+                  <option value="conventional">Conventional</option>
+                  <option value="mixed">Mixed (Organic & Conventional)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="productionCapacity">Monthly Production Capacity</label>
+                <input type="text" id="productionCapacity" name="productionCapacity" placeholder="e.g., 500kg tomatoes, 200L milk">
+              </div>
+            </div>
           </div>
 
           <!-- Business Information -->
-          <h3 style="color: var(--green-600); margin: 32px 0 20px;">
-            <i class="fa-solid fa-briefcase"></i> Business Information
-          </h3>
-          
-          <div class="form-group">
-            <label for="businessRegistration">Business Registration Number (Optional)</label>
-            <input type="text" id="businessRegistration" name="businessRegistration">
+          <div class="form-section">
+            <h3>
+              <i class="fa-solid fa-briefcase"></i> Business Information
+            </h3>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="businessRegistration">Business Registration Number</label>
+                <input type="text" id="businessRegistration" name="businessRegistration" placeholder="Optional">
+              </div>
+              <div class="form-group">
+                <label for="taxPin">KRA PIN</label>
+                <input type="text" id="taxPin" name="taxPin" placeholder="Optional">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="mpesaNumber">M-Pesa Number for Payments *</label>
+                <input type="tel" id="mpesaNumber" name="mpesaNumber" required>
+              </div>
+              <div class="form-group">
+                <label for="bankAccount">Bank Account (Optional)</label>
+                <input type="text" id="bankAccount" name="bankAccount" placeholder="Account number">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="pricingPlan">Preferred Pricing Plan *</label>
+              <select id="pricingPlan" name="pricingPlan" required>
+                <option value="">Select a plan</option>
+                <option value="starter">Starter (Free)</option>
+                <option value="professional">Professional (KES 2,500/month)</option>
+                <option value="enterprise">Enterprise (KES 5,000/month)</option>
+              </select>
+            </div>
           </div>
-          
-          <div class="form-group">
-            <label for="bankAccount">M-Pesa Number for Payments *</label>
-            <input type="tel" id="bankAccount" name="bankAccount" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="farmPhoto">Farm Photo</label>
-            <div class="file-upload">
-              <input type="file" id="farmPhoto" name="farmPhoto" accept="image/*">
-              <label for="farmPhoto" class="file-upload-label">
-                <i class="fa-solid fa-camera"></i>
-                Upload a photo of your farm
-              </label>
+
+          <!-- Additional Information -->
+          <div class="form-section">
+            <h3>
+              <i class="fa-solid fa-info-circle"></i> Additional Information
+            </h3>
+            
+            <div class="form-group">
+              <label for="farmPhoto">Farm Photo</label>
+              <div class="file-upload">
+                <input type="file" id="farmPhoto" name="farmPhoto" accept="image/*">
+                <label for="farmPhoto" class="file-upload-label">
+                  <i class="fa-solid fa-camera"></i>
+                  Upload a photo of your farm (Optional)
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="challenges">What are your main farming challenges?</label>
+              <textarea id="challenges" name="challenges" rows="3" placeholder="e.g., Water shortage, pest control, market access, storage..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="goals">What are your business goals with Farm Langu?</label>
+              <textarea id="goals" name="goals" rows="3" placeholder="e.g., Increase income, reach more customers, improve farming techniques..."></textarea>
             </div>
           </div>
 
           <!-- Terms and Conditions -->
-          <div class="form-group">
-            <div class="checkbox-group">
-              <input type="checkbox" id="terms" name="terms" required>
-              <label for="terms">
-                I agree to the <a href="#" style="color: var(--green-600);">Terms and Conditions</a> and 
-                <a href="#" style="color: var(--green-600);">Privacy Policy</a> *
-              </label>
+          <div class="form-section">
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">
+                  I agree to the <a href="#" style="color: var(--green-600); text-decoration: underline;">Terms and Conditions</a> and 
+                  <a href="#" style="color: var(--green-600); text-decoration: underline;">Privacy Policy</a> *
+                </label>
+              </div>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <div class="checkbox-group">
-              <input type="checkbox" id="newsletter" name="newsletter">
-              <label for="newsletter">
-                I want to receive farming tips and market updates via email
-              </label>
+            
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                <label for="newsletter">
+                  I want to receive farming tips, market updates, and promotional offers via email
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="smsUpdates" name="smsUpdates">
+                <label for="smsUpdates">
+                  I want to receive order notifications and important updates via SMS
+                </label>
+              </div>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 16px;">
+          <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.2rem; padding: 20px; margin-top: 20px;">
             <i class="fa-solid fa-user-plus"></i>
             Register as Farmer
           </button>
@@ -339,21 +1296,110 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer style="padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px;">
-    <div class="container" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;">
-      <div>
-        <strong>Farm Langu</strong> — Growing sustainably together.
-        <div style="margin-top:6px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
+  <!-- Support Section -->
+  <section class="support">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--green-600); font-size: 2.5rem; margin-bottom: 1rem;">Get Support & Training</h2>
+      <p style="text-align: center; color: var(--text-700); max-width: 70ch; margin: 0 auto; font-size: 1.1rem;">We're here to help you succeed every step of the way</p>
+      
+      <div class="support-grid">
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <h3>24/7 Phone Support</h3>
+          <p>Call our dedicated farmer support line anytime for immediate assistance with orders, payments, or technical issues.</p>
+          <a href="tel:+254700000000" class="btn btn-primary">Call Now: +254 700 000 000</a>
+        </div>
+        
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3>Training Programs</h3>
+          <p>Join our regular training sessions on modern farming techniques, business management, and technology adoption.</p>
+          <a href="#" class="btn btn-orange">View Training Schedule</a>
+        </div>
+        
+        <div class="support-card">
+          <div class="support-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <h3>Farmer Community</h3>
+          <p>Connect with other farmers, share experiences, get advice, and learn from success stories in our online community.</p>
+          <a href="#" class="btn btn-blue">Join Community</a>
+        </div>
       </div>
-      <div style="display:flex; gap: 10px;" aria-label="Social links">
-        <a href="#" aria-label="Facebook" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" aria-label="Instagram" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" aria-label="Twitter" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="#" aria-label="YouTube" style="width: 40px; height: 40px; display:grid; place-items:center; border-radius: 12px; background:#eef6ef; color: var(--green-600); text-decoration:none;"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 60px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px; background: white;">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <i class="fa-solid fa-wheat-awn" style="font-size: 1.5rem; color: var(--green-600);"></i>
+          <strong style="font-size: 1.3rem; color: var(--green-600);">Farm Langu</strong>
+        </div>
+        <p style="margin: 0 0 16px; line-height: 1.6;">Empowering farmers across Kenya with technology, market access, and sustainable farming practices. Growing together towards a prosperous agricultural future.</p>
+        <div style="margin-top:12px; font-size:.9rem;">© <span id="year"></span> Farm Langu. All rights reserved.</div>
+      </div>
+      <div>
+        <h4 style="color: var(--green-600); margin-bottom: 16px;">Connect With Us</h4>
+        <p style="margin: 0 0 20px; font-size: 0.9rem; color: var(--text-700);">Join our community on social media for farming tips, success stories, and updates</p>
+        <div style="display:flex; gap: 16px; flex-wrap: wrap;" aria-label="Social links">
+          <a href="https://facebook.com/farmlangu" aria-label="Facebook" 
+             style="width: 50px; height: 50px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: #1877f2; color: white; text-decoration:none; transition: all 0.3s ease;">
+            <i class="fa-brands fa-facebook-f" style="font-size: 1.3rem;"></i>
+          </a>
+          <a href="https://instagram.com/farmlangu" aria-label="Instagram" 
+             style="width: 50px; height: 50px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: #e4405f; color: white; text-decoration:none; transition: all 0.3s ease;">
+            <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i>
+          </a>
+          <a href="https://twitter.com/farmlangu" aria-label="Twitter" 
+             style="width: 50px; height: 50px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: #1da1f2; color: white; text-decoration:none; transition: all 0.3s ease;">
+            <i class="fa-brands fa-x-twitter" style="font-size: 1.3rem;"></i>
+          </a>
+          <a href="https://youtube.com/farmlangu" aria-label="YouTube" 
+             style="width: 50px; height: 50px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: #ff0000; color: white; text-decoration:none; transition: all 0.3s ease;">
+            <i class="fa-brands fa-youtube" style="font-size: 1.3rem;"></i>
+          </a>
+          <a href="https://wa.me/254700000000" aria-label="WhatsApp" 
+             style="width: 50px; height: 50px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: #25d366; color: white; text-decoration:none; transition: all 0.3s ease;">
+            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>
+          </a>
+          <a href="https://linkedin.com/company/farmlangu" aria-label="LinkedIn" 
+             style="width: 50px; height: 50px; display:flex; align-items:center; justify-content:center; border-radius: 12px; background: #0077b5; color: white; text-decoration:none; transition: all 0.3s ease;">
+            <i class="fa-brands fa-linkedin-in" style="font-size: 1.3rem;"></i>
+          </a>
+        </div>
+        
+        <!-- Contact Info -->
+        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <i class="fa-solid fa-phone" style="color: var(--green-600);"></i>
+            <span style="font-size: 0.9rem;">+254 700 000 000</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+            <i class="fa-solid fa-envelope" style="color: var(--green-600);"></i>
+            <span style="font-size: 0.9rem;">farmers@farmlangu.co.ke</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <i class="fa-solid fa-map-marker-alt" style="color: var(--green-600);"></i>
+            <span style="font-size: 0.9rem;">Nairobi, Kenya</span>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/254700000000?text=Hi%20Farm%20Langu!%20I'm%20interested%20in%20joining%20your%20platform%20as%20a%20farmer." 
+     class="floating-whatsapp" 
+     target="_blank" 
+     aria-label="Chat with us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -375,19 +1421,31 @@
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),
             email: formData.get('email'),
-            phone: formData.get('phone')
+            phone: formData.get('phone'),
+            idNumber: formData.get('idNumber')
           },
           farm: {
             name: formData.get('farmName'),
+            county: formData.get('county'),
             location: formData.get('farmLocation'),
             size: formData.get('farmSize'),
             experience: formData.get('experience'),
             products: formData.get('products'),
-            type: formData.get('farmingType')
+            type: formData.get('farmingType'),
+            capacity: formData.get('productionCapacity')
           },
           business: {
             registration: formData.get('businessRegistration'),
-            mpesaNumber: formData.get('bankAccount')
+            taxPin: formData.get('taxPin'),
+            mpesaNumber: formData.get('mpesaNumber'),
+            bankAccount: formData.get('bankAccount'),
+            pricingPlan: formData.get('pricingPlan')
+          },
+          additional: {
+            challenges: formData.get('challenges'),
+            goals: formData.get('goals'),
+            newsletter: formData.get('newsletter') === 'on',
+            smsUpdates: formData.get('smsUpdates') === 'on'
           },
           status: 'pending',
           registeredAt: new Date().toISOString()
@@ -405,10 +1463,10 @@
         // Scroll to success message
         successMessage.scrollIntoView({ behavior: 'smooth' });
         
-        // Hide success message after 5 seconds
+        // Hide success message after 8 seconds
         setTimeout(() => {
           successMessage.classList.remove('show');
-        }, 5000);
+        }, 8000);
       });
       
       // Handle file upload label update
@@ -420,6 +1478,60 @@
           fileLabel.innerHTML = `<i class="fa-solid fa-check"></i> ${this.files[0].name}`;
         }
       });
+      
+      // FAQ functionality
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          
+          // Close all FAQ items
+          faqItems.forEach(faqItem => {
+            faqItem.classList.remove('active');
+          });
+          
+          // Open clicked item if it wasn't active
+          if (!isActive) {
+            item.classList.add('active');
+          }
+        });
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+      
+      // Add simple hover effects to social links
+      document.querySelectorAll('footer a[aria-label="Facebook"], footer a[aria-label="Instagram"], footer a[aria-label="Twitter"], footer a[aria-label="YouTube"], footer a[aria-label="WhatsApp"], footer a[aria-label="LinkedIn"]').forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        link.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+      
+      // Add pulse animation to WhatsApp for immediate contact
+      const whatsappLink = document.querySelector('a[aria-label*="WhatsApp"]');
+      if (whatsappLink) {
+        setInterval(() => {
+          whatsappLink.style.animation = 'pulse 2s ease-in-out';
+          setTimeout(() => {
+            whatsappLink.style.animation = '';
+          }, 2000);
+        }, 10000); // Pulse every 10 seconds
+      }
     });
   </script>
 </body>

@@ -20,8 +20,11 @@
       --text-900: #202420;
       --text-700: #33443a;
       --accent: #8bc34a;
-      --maxw: 1000px;
+      --maxw: 1200px;
       --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+      --shadow-hover: 0 20px 40px rgba(0,0,0,.12);
+      --glass: rgba(255,255,255,0.25);
+      --glass-border: rgba(255,255,255,0.4);
     }
 
     * { box-sizing: border-box; }
@@ -48,52 +51,337 @@
     nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
 
     /* Page Header */
-    .page-header { padding: 60px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center; }
-    .page-header h1 { font-size: 2.5rem; margin: 0 0 1rem; }
-    .page-header p { font-size: 1.2rem; opacity: 0.9; max-width: 60ch; margin: 0 auto; }
+    .page-header { 
+      position: relative; 
+      padding: 80px 0; 
+      background: linear-gradient(135deg, var(--green-600), var(--green-400)); 
+      color: white; 
+      text-align: center; 
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1600&auto=format&fit=crop') center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+    .page-header .container { position: relative; z-index: 2; }
+    .page-header h1 { 
+      font-size: clamp(2rem, 5vw, 3rem); 
+      margin: 0 0 1rem; 
+      animation: fadeInUp 0.8s ease-out;
+    }
+    .page-header p { 
+      font-size: clamp(1rem, 2.5vw, 1.3rem); 
+      opacity: 0.95; 
+      max-width: 65ch; 
+      margin: 0 auto; 
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    .page-header .contact-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+    .contact-stat {
+      text-align: center;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+    }
+    .contact-stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: block;
+    }
+    .contact-stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
 
     /* Contact Section */
-    .contact-section { padding: 60px 0; }
-    .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; }
+    .contact-section { padding: 80px 0; }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start; }
     
-    .contact-form { background: white; border-radius: 18px; padding: 40px; box-shadow: var(--shadow-soft); }
-    .contact-form h2 { color: var(--green-600); margin-bottom: 1.5rem; }
+    .contact-form { 
+      background: white; 
+      border-radius: 24px; 
+      padding: 48px; 
+      box-shadow: var(--shadow-soft); 
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: slideInLeft 0.8s ease-out;
+    }
+    .contact-form:hover { 
+      transform: translateY(-4px); 
+      box-shadow: var(--shadow-hover); 
+    }
+    .contact-form h2 { 
+      color: var(--green-600); 
+      margin-bottom: 1.5rem; 
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
     
-    .form-group { margin-bottom: 20px; }
-    label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-700); }
-    input, select, textarea { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; font: inherit; transition: border-color 0.2s ease; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green-600); }
-    textarea { min-height: 120px; resize: vertical; }
+    .form-group { margin-bottom: 24px; position: relative; }
+    label { 
+      display: block; 
+      font-weight: 600; 
+      margin-bottom: 8px; 
+      color: var(--text-700);
+      font-size: 0.95rem;
+    }
+    input, select, textarea { 
+      width: 100%; 
+      padding: 16px 20px; 
+      border: 2px solid #e1e5e9; 
+      border-radius: 16px; 
+      font: inherit; 
+      transition: all 0.3s ease;
+      background: #fafbfc;
+    }
+    input:focus, select:focus, textarea:focus { 
+      outline: none; 
+      border-color: var(--green-600); 
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15);
+    }
+    textarea { min-height: 140px; resize: vertical; }
     
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     
-    .contact-info { display: flex; flex-direction: column; gap: 24px; }
-    .info-card { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); }
-    .info-card h3 { color: var(--green-600); margin-bottom: 1rem; display: flex; align-items: center; gap: 12px; }
+    .contact-info { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 24px; 
+      animation: slideInRight 0.8s ease-out;
+    }
+    .info-card { 
+      background: white; 
+      border-radius: 20px; 
+      padding: 32px; 
+      box-shadow: var(--shadow-soft); 
+      transition: all 0.3s ease;
+      border: 1px solid rgba(46, 125, 50, 0.1);
+    }
+    .info-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(46, 125, 50, 0.2);
+    }
+    .info-card h3 { 
+      color: var(--green-600); 
+      margin-bottom: 1.2rem; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+      font-size: 1.3rem;
+    }
     .info-card i { font-size: 1.5rem; }
-    .info-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .info-item i { color: var(--green-600); width: 20px; }
+    .info-item { 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 16px; 
+      margin-bottom: 16px; 
+      padding: 12px;
+      border-radius: 12px;
+      transition: background-color 0.2s ease;
+    }
+    .info-item:hover {
+      background: rgba(46, 125, 50, 0.05);
+    }
+    .info-item i { 
+      color: var(--green-600); 
+      width: 24px; 
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
     
-    .map-container { background: #f0f0f0; border-radius: 18px; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--text-700); }
+    .map-container { 
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef); 
+      border-radius: 20px; 
+      height: 240px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: var(--text-700);
+      border: 2px dashed rgba(46, 125, 50, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-container:hover {
+      border-color: rgba(46, 125, 50, 0.5);
+      background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
+    }
+    .map-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.1) 0%, transparent 70%);
+      animation: pulse 3s ease-in-out infinite;
+    }
     
-    .success-message { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 16px; border-radius: 12px; margin-bottom: 20px; display: none; }
-    .success-message.show { display: block; }
+    .success-message { 
+      background: linear-gradient(135deg, #d4edda, #c3e6cb); 
+      border: 1px solid #28a745; 
+      color: #155724; 
+      padding: 20px; 
+      border-radius: 16px; 
+      margin-bottom: 24px; 
+      display: none;
+      animation: slideInDown 0.5s ease-out;
+      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+    }
+    .success-message.show { display: flex; align-items: center; gap: 12px; }
+    .success-message i { font-size: 1.2rem; }
 
     /* FAQ Section */
-    .faq-section { padding: 60px 0; background: white; }
-    .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-    .faq-question { font-weight: 600; color: var(--brown-700); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .faq-answer { margin-top: 12px; color: var(--text-700); display: none; }
-    .faq-answer.show { display: block; }
-    .faq-toggle { color: var(--green-600); transition: transform 0.2s ease; }
+    .faq-section { 
+      padding: 80px 0; 
+      background: linear-gradient(180deg, white, #fafbfc); 
+    }
+    .faq-section h2 {
+      animation: fadeInUp 0.8s ease-out;
+    }
+    .faq-item { 
+      border-bottom: 1px solid rgba(46, 125, 50, 0.1); 
+      padding: 24px 0; 
+      transition: all 0.3s ease;
+    }
+    .faq-item:hover {
+      background: rgba(46, 125, 50, 0.02);
+      padding-left: 16px;
+      border-radius: 12px;
+    }
+    .faq-question { 
+      font-weight: 600; 
+      color: var(--brown-700); 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      transition: color 0.2s ease;
+    }
+    .faq-question:hover {
+      color: var(--green-600);
+    }
+    .faq-answer { 
+      margin-top: 16px; 
+      color: var(--text-700); 
+      display: none;
+      padding: 16px 20px;
+      background: rgba(46, 125, 50, 0.05);
+      border-radius: 12px;
+      border-left: 4px solid var(--green-600);
+      line-height: 1.6;
+    }
+    .faq-answer.show { 
+      display: block; 
+      animation: slideDown 0.3s ease-out;
+    }
+    .faq-toggle { 
+      color: var(--green-600); 
+      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+    }
     .faq-toggle.rotate { transform: rotate(180deg); }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; max-height: 0; }
+      to { opacity: 1; max-height: 200px; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+    }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { opacity: 1; transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Quick Contact Bar */
+    .quick-contact {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .quick-contact-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      animation: bounceIn 0.8s ease-out;
+    }
+    .quick-contact-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+    }
+    .whatsapp-btn { background: #25d366; }
+    .call-btn { background: var(--green-600); }
+    .email-btn { background: #ea4335; }
 
     /* Responsive */
     @media (max-width: 768px) {
+      .page-header { padding: 60px 0; }
       .page-header h1 { font-size: 2rem; }
-      .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+      .page-header .contact-stats { flex-direction: column; gap: 1rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
       .form-row { grid-template-columns: 1fr; }
-      .contact-form { padding: 24px; }
+      .contact-form { padding: 32px 24px; }
+      .info-card { padding: 24px; }
+      .quick-contact { bottom: 16px; right: 16px; }
+      .quick-contact-btn { width: 48px; height: 48px; font-size: 1.1rem; }
+    }
+    @media (max-width: 480px) {
+      .contact-form { padding: 24px 20px; }
+      .page-header .contact-stats { display: none; }
     }
   </style>
 </head>
@@ -121,8 +409,23 @@
   <!-- Page Header -->
   <section class="page-header">
     <div class="container">
-      <h1>Contact Us</h1>
-      <p>Get in touch with our team. We're here to help you succeed.</p>
+      <h1><i class="fa-solid fa-comments"></i> Contact Us</h1>
+      <p>Get in touch with our team. We're here to help you succeed in your farming journey.</p>
+      
+      <div class="contact-stats">
+        <div class="contact-stat">
+          <span class="contact-stat-number">24/7</span>
+          <span class="contact-stat-label">Support Available</span>
+        </div>
+        <div class="contact-stat">
+          <span class="contact-stat-number">&lt;2hrs</span>
+          <span class="contact-stat-label">Response Time</span>
+        </div>
+        <div class="contact-stat">
+          <span class="contact-stat-number">2,500+</span>
+          <span class="contact-stat-label">Farmers Helped</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -132,7 +435,7 @@
       <div class="contact-grid">
         <!-- Contact Form -->
         <div class="contact-form">
-          <h2>Send us a Message</h2>
+          <h2><i class="fa-solid fa-paper-plane"></i> Send us a Message</h2>
           
           <div class="success-message" id="success-message">
             <i class="fa-solid fa-check-circle"></i>
@@ -169,8 +472,13 @@
                 <option value="general">General Inquiry</option>
                 <option value="farmer">Farmer Registration</option>
                 <option value="customer">Customer Support</option>
-                <option value="partnership">Partnership</option>
+                <option value="partnership">Business Partnership</option>
+                <option value="technology">Smart Farming Technology</option>
                 <option value="technical">Technical Issue</option>
+                <option value="delivery">Delivery & Orders</option>
+                <option value="quality">Product Quality</option>
+                <option value="pricing">Pricing & Payment</option>
+                <option value="training">Training & Resources</option>
                 <option value="other">Other</option>
               </select>
             </div>
@@ -320,8 +628,41 @@
           After placing an order, you'll receive SMS updates on your order status. You can also call our customer support line for real-time updates on your delivery.
         </div>
       </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Do you offer smart farming technology consultation?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          Yes! Our agricultural technology experts provide free consultations to help you choose the right smart farming solutions for your needs and budget. Contact us to schedule a consultation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          What training do you provide for new technology?
+          <i class="fa-solid fa-chevron-down faq-toggle"></i>
+        </div>
+        <div class="faq-answer">
+          We provide comprehensive training for all smart farming technology purchases, including installation support, operation training, and ongoing maintenance guidance. Training is included with every technology purchase.
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Quick Contact Floating Buttons -->
+  <div class="quick-contact">
+    <a href="https://wa.me/254700123456" class="quick-contact-btn whatsapp-btn" title="WhatsApp Us">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <a href="tel:+254700123456" class="quick-contact-btn call-btn" title="Call Us">
+      <i class="fa-solid fa-phone"></i>
+    </a>
+    <a href="mailto:hello@farmlangu.co.ke" class="quick-contact-btn email-btn" title="Email Us">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+  </div>
 
   <!-- Footer -->
   <footer style="padding: 36px 0; border-top: 1px solid rgba(0,0,0,.06); color:#4b5a51; margin-top: 40px;">
@@ -347,21 +688,69 @@
       // Handle form submission
       const form = document.getElementById('contact-form');
       const successMessage = document.getElementById('success-message');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
       
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Show success message
-        successMessage.classList.add('show');
-        form.reset();
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
         
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth' });
-        
-        // Hide success message after 5 seconds
+        // Simulate form submission delay
         setTimeout(() => {
-          successMessage.classList.remove('show');
-        }, 5000);
+          // Show success message
+          successMessage.classList.add('show');
+          form.reset();
+          
+          // Reset button
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+          
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: 'smooth' });
+          
+          // Hide success message after 7 seconds
+          setTimeout(() => {
+            successMessage.classList.remove('show');
+          }, 7000);
+        }, 1500);
+      });
+
+      // Add form field animations
+      const formInputs = form.querySelectorAll('input, select, textarea');
+      formInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'scale(1)';
+        });
+      });
+
+      // Animate elements on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe FAQ items
+      document.querySelectorAll('.faq-item').forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
       });
     });
 

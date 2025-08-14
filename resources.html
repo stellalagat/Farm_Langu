@@ -14,14 +14,25 @@
       --green-600: #2e7d32;
       --green-500: #388e3c;
       --green-400: #43a047;
+      --green-300: #66bb6a;
       --beige-50: #faf7f1;
       --beige-100: #f5efe3;
       --brown-700: #5d4037;
       --text-900: #202420;
       --text-700: #33443a;
       --accent: #8bc34a;
+      --accent-orange: #ff9800;
+      --accent-blue: #2196f3;
+      --accent-purple: #9c27b0;
+      --accent-teal: #009688;
+      --accent-red: #f44336;
+      --accent-yellow: #ffc107;
       --maxw: 1200px;
       --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
+      --shadow-hover: 0 20px 40px rgba(0,0,0,.12);
+      --gradient-primary: linear-gradient(135deg, #43a047, #8bc34a, #66bb6a);
+      --gradient-secondary: linear-gradient(135deg, #ff9800, #ffc107);
+      --gradient-tertiary: linear-gradient(135deg, #2196f3, #009688);
     }
 
     * { box-sizing: border-box; }
@@ -49,18 +60,104 @@
     nav a:hover, nav a:focus { background: #eaf5ec; color: var(--green-600); }
 
     /* Page Header */
-    .page-header { padding: 60px 0; background: linear-gradient(135deg, var(--green-600), var(--green-400)); color: white; text-align: center; }
-    .page-header h1 { font-size: 2.5rem; margin: 0 0 1rem; }
-    .page-header p { font-size: 1.2rem; opacity: 0.9; max-width: 60ch; margin: 0 auto; }
+    .page-header { 
+      position: relative;
+      padding: 100px 0; 
+      background: linear-gradient(135deg, var(--green-600), var(--green-400), var(--accent), var(--accent-orange)); 
+      color: white; 
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1600&auto=format&fit=crop') center/cover;
+      opacity: 0.15;
+      z-index: 1;
+    }
+    .page-header .container { position: relative; z-index: 2; }
+    .page-header h1 { 
+      font-size: clamp(2.5rem, 6vw, 4rem); 
+      margin: 0 0 1.5rem; 
+      font-weight: 700;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    .page-header p { 
+      font-size: clamp(1.1rem, 3vw, 1.4rem); 
+      opacity: 0.95; 
+      max-width: 70ch; 
+      margin: 0 auto;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     /* Resource Categories */
-    .resource-categories { padding: 60px 0; }
-    .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-    .category-card { background: white; border-radius: 18px; padding: 32px; box-shadow: var(--shadow-soft); text-align: center; cursor: pointer; transition: transform 0.2s ease; }
-    .category-card:hover { transform: translateY(-4px); }
-    .category-card i { font-size: 3rem; color: var(--green-600); margin-bottom: 16px; }
-    .category-card h3 { margin: 0 0 12px; color: var(--brown-700); }
-    .category-card p { color: var(--text-700); margin-bottom: 16px; }
+    .resource-categories { padding: 80px 0; background: linear-gradient(135deg, #f8fff8, #fff3e0, #f1f8e9); }
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+    .category-card { 
+      background: white; 
+      border-radius: 24px; 
+      padding: 40px 32px; 
+      box-shadow: var(--shadow-soft); 
+      text-align: center; 
+      cursor: pointer; 
+      transition: all 0.3s ease;
+      border: 1px solid rgba(46, 125, 50, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+    .category-card:nth-child(1)::before { background: var(--gradient-primary); }
+    .category-card:nth-child(2)::before { background: var(--gradient-secondary); }
+    .category-card:nth-child(3)::before { background: var(--gradient-tertiary); }
+    .category-card:nth-child(4)::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-red)); }
+    .category-card:nth-child(5)::before { background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue)); }
+    .category-card:nth-child(6)::before { background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple)); }
+    .category-card:nth-child(7)::before { background: linear-gradient(90deg, var(--accent-orange), var(--accent-yellow)); }
+    .category-card:hover { 
+      transform: translateY(-8px); 
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(46, 125, 50, 0.2);
+    }
+    .category-card .icon-wrapper {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      transition: transform 0.3s ease;
+    }
+    .category-card:nth-child(1) .icon-wrapper { background: var(--gradient-primary); }
+    .category-card:nth-child(2) .icon-wrapper { background: var(--gradient-secondary); }
+    .category-card:nth-child(3) .icon-wrapper { background: var(--gradient-tertiary); }
+    .category-card:nth-child(4) .icon-wrapper { background: linear-gradient(135deg, var(--accent-purple), var(--accent-red)); }
+    .category-card:nth-child(5) .icon-wrapper { background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue)); }
+    .category-card:nth-child(6) .icon-wrapper { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); }
+    .category-card:nth-child(7) .icon-wrapper { background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow)); }
+    .category-card:hover .icon-wrapper { transform: scale(1.1) rotate(5deg); }
+    .category-card i { font-size: 2rem; color: white; }
+    .category-card h3 { margin: 0 0 16px; color: var(--brown-700); font-size: 1.4rem; font-weight: 700; }
+    .category-card p { color: var(--text-700); margin-bottom: 20px; line-height: 1.6; }
 
     /* Resource Content */
     .resource-section { padding: 60px 0; display: none; }
@@ -82,8 +179,8 @@
     .region-card { background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft); }
     .region-card h3 { color: var(--green-600); margin-bottom: 16px; }
     .climate-info { background: #f8fff8; padding: 16px; border-radius: 12px; margin-bottom: 16px; }
-    .suitable-crops { display: flex; flex-wrap: gap; gap: 8px; }
-    .crop-tag { background: var(--green-600); color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; }
+    .suitable-crops { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .crop-tag { background: var(--green-600); color: white; padding: 6px 12px; border-radius: 16px; font-size: 0.85rem; font-weight: 500; white-space: nowrap; }
 
     /* Seeds Guide */
     .seeds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
@@ -162,45 +259,66 @@
     <div class="container">
       <div class="categories-grid">
         <div class="category-card" onclick="showResourceSection('planting-calendar')">
-          <i class="fa-solid fa-calendar-alt"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-calendar-alt"></i>
+          </div>
           <h3>Planting Calendar</h3>
           <p>Best times to plant different crops throughout the year in Kenya</p>
           <div class="tag">Seasonal Guide</div>
         </div>
         
         <div class="category-card" onclick="showResourceSection('regional-guide')">
-          <i class="fa-solid fa-map-marked-alt"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-map-marked-alt"></i>
+          </div>
           <h3>Regional Planting Guide</h3>
           <p>What to grow in different regions and climate zones across Kenya</p>
           <div class="tag">Location Based</div>
         </div>
         
         <div class="category-card" onclick="showResourceSection('seeds-guide')">
-          <i class="fa-solid fa-seedling"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-seedling"></i>
+          </div>
           <h3>Seeds & Varieties</h3>
           <p>High-yield seed varieties and their characteristics for better harvests</p>
           <div class="tag">Seed Selection</div>
         </div>
         
         <div class="category-card" onclick="showResourceSection('pest-control')">
-          <i class="fa-solid fa-bug"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-bug"></i>
+          </div>
           <h3>Pest & Disease Control</h3>
           <p>Identify and treat common pests and diseases affecting your crops</p>
           <div class="tag">Plant Protection</div>
         </div>
         
         <div class="category-card" onclick="showResourceSection('soil-management')">
-          <i class="fa-solid fa-mountain"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-mountain"></i>
+          </div>
           <h3>Soil Management</h3>
           <p>Soil testing, fertilization, and improvement techniques</p>
           <div class="tag">Soil Health</div>
         </div>
         
         <div class="category-card" onclick="showResourceSection('irrigation')">
-          <i class="fa-solid fa-tint"></i>
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-tint"></i>
+          </div>
           <h3>Irrigation & Water</h3>
           <p>Water management and irrigation systems for different crops</p>
           <div class="tag">Water Management</div>
+        </div>
+        
+        <div class="category-card" onclick="showResourceSection('smart-farming')">
+          <div class="icon-wrapper">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h3>Smart Farming Technology</h3>
+          <p>Modern technology solutions for irrigation, monitoring, spraying, and harvesting</p>
+          <div class="tag">Technology</div>
         </div>
       </div>
     </div>
@@ -210,6 +328,35 @@
   <section id="planting-calendar" class="resource-section">
     <div class="container">
       <h2><i class="fa-solid fa-calendar-alt"></i> Kenya Planting Calendar</h2>
+      
+      <!-- Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 1fr 350px; gap: 40px; align-items: center;">
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-calendar-check"></i> Seasonal Planting Guide
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Kenya's agricultural calendar is driven by two main rainy seasons. Understanding these patterns is crucial for successful crop production and maximizing yields throughout the year.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #e3f2fd; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-blue); margin: 0 0 8px;">Long Rains</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">March - May</p>
+              </div>
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Short Rains</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">October - December</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=400&auto=format&fit=crop" 
+                 alt="Seasonal farming calendar" 
+                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+        </div>
+      </div>
       
       <div class="resource-filters">
         <div class="filters-content">
@@ -275,6 +422,35 @@
   <section id="regional-guide" class="resource-section">
     <div class="container">
       <h2><i class="fa-solid fa-map-marked-alt"></i> Regional Planting Guide</h2>
+      
+      <!-- Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 350px 1fr; gap: 40px; align-items: center;">
+          <div>
+            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=400&auto=format&fit=crop" 
+                 alt="Kenya regional map" 
+                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-globe-africa"></i> Climate-Based Crop Selection
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Kenya's diverse climate zones offer unique opportunities for different crops. From the cool highlands perfect for coffee and tea to the warm coastal regions ideal for coconuts and cashews.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #f8fff8; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--green-600); margin: 0 0 8px;">Highland Zones</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">1,500-2,500m altitude</p>
+              </div>
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Coastal Regions</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">0-500m altitude</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <div class="regions-grid">
         <div class="region-card">
@@ -393,9 +569,38 @@
     <div class="container">
       <h2><i class="fa-solid fa-seedling"></i> High-Yield Seed Varieties</h2>
       
+      <!-- Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 1fr 350px; gap: 40px; align-items: center;">
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-dna"></i> Premium Seed Selection
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Choose from our carefully selected high-yield seed varieties that are adapted to Kenyan conditions. Our seeds are tested for germination rates, disease resistance, and yield potential.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #f8fff8; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--green-600); margin: 0 0 8px;">Certified Seeds</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">95%+ germination rate</p>
+              </div>
+              <div style="background: #e3f2fd; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-blue); margin: 0 0 8px;">Disease Resistant</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Improved varieties</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop" 
+                 alt="Quality seeds selection" 
+                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+        </div>
+      </div>
+      
       <div class="seeds-grid">
         <div class="seed-card">
-          <img src="images/organic.jpg" alt="Maize seeds">
+          <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?q=80&w=600&auto=format&fit=crop" alt="Maize seeds">
           <div class="seed-content">
             <h3>Hybrid Maize - H614</h3>
             <p>High-yielding drought-tolerant variety suitable for medium to low altitude areas.</p>
@@ -417,7 +622,7 @@
         </div>
         
         <div class="seed-card">
-          <img src="images/vegetables.jpg" alt="Bean seeds">
+          <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?q=80&w=600&auto=format&fit=crop" alt="Bean seeds">
           <div class="seed-content">
             <h3>Climbing Beans - KK8</h3>
             <p>High-yielding climbing variety with excellent disease resistance.</p>
@@ -439,7 +644,7 @@
         </div>
         
         <div class="seed-card">
-          <img src="images/tomato.jpg" alt="Tomato seeds">
+          <img src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?q=80&w=600&auto=format&fit=crop" alt="Tomato seeds">
           <div class="seed-content">
             <h3>Tomato - Anna F1</h3>
             <p>Determinate variety with uniform ripening and excellent shelf life.</p>
@@ -468,8 +673,40 @@
     <div class="container">
       <h2><i class="fa-solid fa-bug"></i> Pest & Disease Control Guide</h2>
       
+      <!-- Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 350px 1fr; gap: 40px; align-items: center;">
+          <div>
+            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop" 
+                 alt="Crop protection and pest control" 
+                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-shield-alt"></i> Integrated Pest Management
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Protect your crops with our comprehensive pest and disease control strategies. Learn to identify common threats and apply effective, sustainable treatment methods.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Early Detection</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Prevention is key</p>
+              </div>
+              <div style="background: #f3e5f5; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-purple); margin: 0 0 8px;">Eco-Friendly</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Sustainable methods</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div class="pest-grid">
         <div class="pest-card">
+          <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?q=80&w=600&auto=format&fit=crop" 
+               alt="Fall armyworm damage on maize" 
+               style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
           <div class="pest-header">
             <div class="pest-icon">
               <i class="fa-solid fa-bug"></i>
@@ -487,6 +724,9 @@
         </div>
         
         <div class="pest-card">
+          <img src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?q=80&w=600&auto=format&fit=crop" 
+               alt="Tomato blight disease" 
+               style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
           <div class="pest-header">
             <div class="pest-icon">
               <i class="fa-solid fa-leaf"></i>
@@ -504,6 +744,9 @@
         </div>
         
         <div class="pest-card">
+          <img src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?q=80&w=600&auto=format&fit=crop" 
+               alt="Aphid infestation on plants" 
+               style="width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
           <div class="pest-header">
             <div class="pest-icon">
               <i class="fa-solid fa-spider"></i>
@@ -536,6 +779,521 @@
             <li><span class="treatment-type">Chemical:</span> Chlorpyrifos</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Soil Management Section -->
+  <section id="soil-management" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-mountain"></i> Soil Management Guide</h2>
+      
+      <div class="resource-filters">
+        <div class="filters-content">
+          <div class="search-box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search soil management topics..." id="soil-search">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Soil Testing Section -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: center;">
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-flask"></i> Soil Testing & Analysis
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Understanding your soil composition is the foundation of successful farming. Regular soil testing helps determine nutrient levels, pH balance, and soil structure.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+              <div style="background: #f8fff8; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--green-600); margin: 0 0 8px;">pH Testing</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Optimal range: 6.0-7.5 for most crops</p>
+              </div>
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Nutrient Analysis</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">N-P-K levels and micronutrients</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=400&auto=format&fit=crop" 
+                 alt="Soil testing" 
+                 style="width: 100%; height: 200px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Fertilization Guide -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-bottom: 32px;">
+        <div style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-leaf" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Organic Fertilizers</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Natural fertilizers that improve soil structure and provide slow-release nutrients.</p>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Types:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-seedling" style="color: var(--green-600); margin-right: 8px;"></i>Compost (homemade or commercial)</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-seedling" style="color: var(--green-600); margin-right: 8px;"></i>Well-rotted manure</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-seedling" style="color: var(--green-600); margin-right: 8px;"></i>Bone meal and fish emulsion</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-seedling" style="color: var(--green-600); margin-right: 8px;"></i>Green manure crops</li>
+          </ul>
+          
+          <div style="background: #f8fff8; padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <strong style="color: var(--green-600);">Application Rate:</strong>
+            <span style="color: var(--text-700); font-size: 0.9rem;">2-4 tons per hectare annually</span>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-flask-vial" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Inorganic Fertilizers</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Chemical fertilizers that provide immediate nutrient availability for rapid plant growth.</p>
+          
+          <h4 style="color: var(--accent-orange); margin: 16px 0 8px;">Common Types:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-atom" style="color: var(--accent-orange); margin-right: 8px;"></i>NPK (17-17-17) - Balanced nutrition</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-atom" style="color: var(--accent-orange); margin-right: 8px;"></i>DAP (18-46-0) - High phosphorus</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-atom" style="color: var(--accent-orange); margin-right: 8px;"></i>CAN (26-0-0) - Nitrogen source</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-atom" style="color: var(--accent-orange); margin-right: 8px;"></i>Urea (46-0-0) - High nitrogen</li>
+          </ul>
+          
+          <div style="background: #fff3e0; padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <strong style="color: var(--accent-orange);">Application Rate:</strong>
+            <span style="color: var(--text-700); font-size: 0.9rem;">50-200 kg per hectare (crop dependent)</span>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: var(--gradient-tertiary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-recycle" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Soil Improvement</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Techniques to enhance soil structure, water retention, and overall health.</p>
+          
+          <h4 style="color: var(--accent-blue); margin: 16px 0 8px;">Methods:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent-blue); margin-right: 8px;"></i>Crop rotation systems</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent-blue); margin-right: 8px;"></i>Cover cropping</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent-blue); margin-right: 8px;"></i>Minimal tillage practices</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-arrows-rotate" style="color: var(--accent-blue); margin-right: 8px;"></i>Organic matter addition</li>
+          </ul>
+          
+          <div style="background: #e3f2fd; padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <strong style="color: var(--accent-blue);">Benefits:</strong>
+            <span style="color: var(--text-700); font-size: 0.9rem;">Improved water retention & soil structure</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Soil Problems & Solutions -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 24px; text-align: center;">
+          <i class="fa-solid fa-exclamation-triangle"></i> Common Soil Problems & Solutions
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;">
+            <h4 style="color: var(--accent-red); margin: 0 0 12px;">Soil Acidity (Low pH)</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin-bottom: 12px;">Symptoms: Poor plant growth, yellowing leaves, reduced nutrient uptake</p>
+            <div style="background: #ffebee; padding: 12px; border-radius: 8px;">
+              <strong style="color: var(--accent-red);">Solution:</strong>
+              <span style="color: var(--text-700); font-size: 0.9rem;">Apply lime (CaCO₃) at 1-3 tons per hectare</span>
+            </div>
+          </div>
+          
+          <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;">
+            <h4 style="color: var(--accent-purple); margin: 0 0 12px;">Soil Compaction</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin-bottom: 12px;">Symptoms: Poor water infiltration, stunted root growth, surface runoff</p>
+            <div style="background: #f3e5f5; padding: 12px; border-radius: 8px;">
+              <strong style="color: var(--accent-purple);">Solution:</strong>
+              <span style="color: var(--text-700); font-size: 0.9rem;">Deep tillage, organic matter, controlled traffic</span>
+            </div>
+          </div>
+          
+          <div style="border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px;">
+            <h4 style="color: var(--accent-teal); margin: 0 0 12px;">Nutrient Deficiency</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin-bottom: 12px;">Symptoms: Chlorosis, poor growth, low yields, specific deficiency signs</p>
+            <div style="background: #e0f2f1; padding: 12px; border-radius: 8px;">
+              <strong style="color: var(--accent-teal);">Solution:</strong>
+              <span style="color: var(--text-700); font-size: 0.9rem;">Targeted fertilization based on soil test results</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="contact.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">
+          <i class="fa-solid fa-phone"></i> Get Soil Testing Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Irrigation & Water Management Section -->
+  <section id="irrigation" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-tint"></i> Irrigation & Water Management</h2>
+      
+      <div class="resource-filters">
+        <div class="filters-content">
+          <div class="search-box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search irrigation methods..." id="irrigation-search">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Water Requirements Section -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center;">
+          <div>
+            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=400&auto=format&fit=crop" 
+                 alt="Irrigation system" 
+                 style="width: 100%; height: 200px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-droplet"></i> Water Requirements by Crop
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Different crops have varying water needs throughout their growth cycle. Understanding these requirements helps optimize irrigation scheduling and water use efficiency.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #e3f2fd; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-blue); margin: 0 0 8px;">High Water Crops</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Rice, Sugarcane, Bananas</p>
+              </div>
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Moderate Water Crops</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Maize, Tomatoes, Cabbages</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Irrigation Methods -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-bottom: 32px;">
+        <div style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-shower" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Drip Irrigation</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Efficient water delivery system that applies water directly to plant roots through a network of tubes and emitters.</p>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Advantages:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>90-95% water efficiency</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Reduces weed growth</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Precise nutrient delivery</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Suitable for all terrains</li>
+          </ul>
+          
+          <div style="background: #f8fff8; padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <strong style="color: var(--green-600);">Best For:</strong>
+            <span style="color: var(--text-700); font-size: 0.9rem;">Vegetables, fruits, greenhouse crops</span>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-spray-can" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Sprinkler Irrigation</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Water distribution system that sprays water over crops, simulating natural rainfall patterns.</p>
+          
+          <h4 style="color: var(--accent-orange); margin: 16px 0 8px;">Types:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-circle-dot" style="color: var(--accent-orange); margin-right: 8px;"></i>Center pivot systems</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-circle-dot" style="color: var(--accent-orange); margin-right: 8px;"></i>Portable sprinklers</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-circle-dot" style="color: var(--accent-orange); margin-right: 8px;"></i>Fixed spray systems</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-circle-dot" style="color: var(--accent-orange); margin-right: 8px;"></i>Micro-sprinklers</li>
+          </ul>
+          
+          <div style="background: #fff3e0; padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <strong style="color: var(--accent-orange);">Efficiency:</strong>
+            <span style="color: var(--text-700); font-size: 0.9rem;">70-85% water efficiency</span>
+          </div>
+        </div>
+        
+        <div style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: var(--gradient-tertiary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-water" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Surface Irrigation</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Traditional method where water flows over the soil surface by gravity, including furrow and basin irrigation.</p>
+          
+          <h4 style="color: var(--accent-blue); margin: 16px 0 8px;">Methods:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-waves" style="color: var(--accent-blue); margin-right: 8px;"></i>Furrow irrigation</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-waves" style="color: var(--accent-blue); margin-right: 8px;"></i>Basin irrigation</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-waves" style="color: var(--accent-blue); margin-right: 8px;"></i>Border irrigation</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-waves" style="color: var(--accent-blue); margin-right: 8px;"></i>Flood irrigation</li>
+          </ul>
+          
+          <div style="background: #e3f2fd; padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <strong style="color: var(--accent-blue);">Best For:</strong>
+            <span style="color: var(--text-700); font-size: 0.9rem;">Large field crops, rice, pastures</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Water Conservation -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 24px; text-align: center;">
+          <i class="fa-solid fa-leaf"></i> Water Conservation Techniques
+        </h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <div style="text-align: center; padding: 20px;">
+            <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+              <i class="fa-solid fa-clock" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h4 style="color: var(--green-600); margin: 0 0 8px;">Irrigation Scheduling</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin: 0;">Water at optimal times based on crop needs and weather conditions</p>
+          </div>
+          
+          <div style="text-align: center; padding: 20px;">
+            <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+              <i class="fa-solid fa-seedling" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Mulching</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin: 0;">Reduce evaporation and maintain soil moisture with organic mulches</p>
+          </div>
+          
+          <div style="text-align: center; padding: 20px;">
+            <div style="width: 60px; height: 60px; background: var(--gradient-tertiary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+              <i class="fa-solid fa-cloud-rain" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h4 style="color: var(--accent-blue); margin: 0 0 8px;">Rainwater Harvesting</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin: 0;">Collect and store rainwater for use during dry periods</p>
+          </div>
+          
+          <div style="text-align: center; padding: 20px;">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-purple), var(--accent-red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+              <i class="fa-solid fa-recycle" style="color: white; font-size: 1.5rem;"></i>
+            </div>
+            <h4 style="color: var(--accent-purple); margin: 0 0 8px;">Water Recycling</h4>
+            <p style="color: var(--text-700); font-size: 0.9rem; margin: 0;">Reuse treated wastewater and drainage water for irrigation</p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="contact.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">
+          <i class="fa-solid fa-phone"></i> Get Irrigation System Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Smart Farming Technology Section -->
+  <section id="smart-farming" class="resource-section">
+    <div class="container">
+      <h2><i class="fa-solid fa-microchip"></i> Smart Farming Technology</h2>
+      
+      <!-- Header Image -->
+      <div style="background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; box-shadow: var(--shadow-soft);">
+        <div style="display: grid; grid-template-columns: 1fr 350px; gap: 40px; align-items: center;">
+          <div>
+            <h3 style="color: var(--green-600); font-size: 1.8rem; margin-bottom: 20px;">
+              <i class="fa-solid fa-robot"></i> Modern Agricultural Technology
+            </h3>
+            <p style="color: var(--text-700); line-height: 1.6; margin-bottom: 20px;">
+              Embrace the future of farming with our smart technology solutions. From automated irrigation to precision monitoring, these tools help optimize your farm operations and increase productivity.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="background: #e3f2fd; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-blue); margin: 0 0 8px;">IoT Sensors</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Real-time monitoring</p>
+              </div>
+              <div style="background: #fff3e0; padding: 16px; border-radius: 12px;">
+                <h4 style="color: var(--accent-orange); margin: 0 0 8px;">Automation</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Reduced labor costs</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=400&auto=format&fit=crop" 
+                 alt="Smart farming technology" 
+                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-soft);">
+          </div>
+        </div>
+      </div>
+      
+      <div class="resource-filters">
+        <div class="filters-content">
+          <div class="search-box">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" class="search-input" placeholder="Search technology solutions..." id="tech-search">
+          </div>
+        </div>
+      </div>
+      
+      <div class="tech-solutions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px;">
+        <!-- Smart Irrigation -->
+        <div class="tech-solution-card" style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=600&auto=format&fit=crop" 
+               alt="Smart irrigation system" 
+               style="width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: #e3f2fd; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-tint" style="color: #1976d2; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Smart Irrigation Systems</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Automated watering systems that optimize water usage based on soil moisture, weather conditions, and crop needs.</p>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Key Features:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Soil moisture sensors</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Weather integration</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Mobile app control</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Water usage tracking</li>
+          </ul>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Benefits:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Reduces water usage by 30-40%</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Prevents over/under watering</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Saves labor costs</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Improves crop yields</li>
+          </ul>
+        </div>
+
+        <!-- Crop Monitoring -->
+        <div class="tech-solution-card" style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" 
+               alt="Crop monitoring with drones" 
+               style="width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: #e8f5e8; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-chart-line" style="color: var(--green-600); font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Crop Monitoring Systems</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">IoT sensors and drones for real-time monitoring of crop health, growth stages, and environmental conditions.</p>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Monitoring Parameters:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Plant health indicators</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Growth stage tracking</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Disease detection</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Yield prediction</li>
+          </ul>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Technologies Used:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• IoT sensors for continuous monitoring</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Drone imaging and analysis</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• AI-powered disease detection</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Mobile alerts and reports</li>
+          </ul>
+        </div>
+
+        <!-- Precision Spraying -->
+        <div class="tech-solution-card" style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: #fff3e0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-spray-can" style="color: #f57c00; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Precision Spraying</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">GPS-guided and variable-rate application systems for targeted spraying of fertilizers, pesticides, and herbicides.</p>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Spraying Technologies:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>GPS-guided sprayers</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Variable rate application</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Drone spraying services</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Drift reduction technology</li>
+          </ul>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Advantages:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Reduces chemical usage by 25-30%</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Minimizes environmental impact</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Improves application accuracy</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Reduces labor and time</li>
+          </ul>
+        </div>
+
+        <!-- Harvest Management -->
+        <div class="tech-solution-card" style="background: white; border-radius: 18px; padding: 24px; box-shadow: var(--shadow-soft);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 50px; height: 50px; background: #f3e5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fa-solid fa-warehouse" style="color: #7b1fa2; font-size: 1.5rem;"></i>
+            </div>
+            <h3 style="margin: 0; color: var(--brown-700);">Harvest Management</h3>
+          </div>
+          <p style="color: var(--text-700); margin-bottom: 16px;">Digital tools for optimizing harvest timing, quality control, storage management, and market linkage.</p>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Management Tools:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Harvest timing optimization</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Quality assessment tools</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Digital weighing systems</li>
+            <li style="padding: 4px 0; color: var(--text-700);"><i class="fa-solid fa-check" style="color: var(--green-600); margin-right: 8px;"></i>Market price tracking</li>
+          </ul>
+          
+          <h4 style="color: var(--green-600); margin: 16px 0 8px;">Benefits:</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Maximizes crop quality and value</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Reduces post-harvest losses</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Improves market access</li>
+            <li style="padding: 2px 0; color: var(--text-700); font-size: 0.9rem;">• Better price negotiation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background: #f8fff8; border-radius: 18px; padding: 24px; margin-top: 32px; border-left: 4px solid var(--green-600);">
+        <h3 style="color: var(--green-600); margin: 0 0 16px;"><i class="fa-solid fa-lightbulb"></i> Getting Started with Smart Farming</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+          <div>
+            <h4 style="color: var(--brown-700); margin: 0 0 8px;">1. Assessment</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Evaluate your current farming practices and identify areas for improvement.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brown-700); margin: 0 0 8px;">2. Planning</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Choose appropriate technologies based on your crops, budget, and goals.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brown-700); margin: 0 0 8px;">3. Implementation</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Start with one technology and gradually expand your smart farming system.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brown-700); margin: 0 0 8px;">4. Training</h4>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-700);">Learn to use and maintain the technology for maximum benefits.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="shop.html?category=technology" class="btn btn-primary" style="margin-right: 16px;">
+          <i class="fa-solid fa-shopping-cart"></i> Shop Smart Farming Tech
+        </a>
+        <a href="contact.html" class="btn btn-secondary">
+          <i class="fa-solid fa-phone"></i> Get Technology Consultation
+        </a>
       </div>
     </div>
   </section>

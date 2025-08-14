@@ -82,6 +82,18 @@
     .product-card .content { padding: 14px 16px 18px; display:flex; flex-direction: column; gap: .4rem; }
     .product-card .price { font-weight: 700; color: var(--green-600); }
 
+    /* Smart Farming Technology */
+    .smart-farming { background: #fff; }
+    .tech-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+    .tech-card { background: var(--beige-50); border-radius: 18px; padding: 20px; box-shadow: var(--shadow-soft); text-align: center; transition: transform .2s ease; }
+    .tech-card:hover { transform: translateY(-4px); }
+    .tech-card i { font-size: 2.5rem; color: var(--green-600); margin-bottom: 12px; }
+    .tech-card h3 { margin: 8px 0; font-size: 1.1rem; color: var(--brown-700); }
+    .tech-card p { font-size: .9rem; color: var(--text-700); margin-bottom: 12px; }
+    .tech-features { list-style: none; padding: 0; margin: 12px 0; }
+    .tech-features li { font-size: .85rem; color: var(--text-700); padding: 2px 0; }
+    .tech-features li:before { content: "✓"; color: var(--green-600); font-weight: bold; margin-right: 6px; }
+
     /* Tips blog cards */
     .tips-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px; }
     .tip { background: #fff; border-radius: 18px; box-shadow: var(--shadow-soft); overflow: hidden; display:flex; flex-direction: column; }
@@ -113,6 +125,7 @@
     @media (max-width: 900px) {
       .hero-inner, .story-content, .contact, .footer-grid { grid-template-columns: 1fr; }
       .products-grid, .tips-grid { grid-template-columns: repeat(2, 1fr); }
+      .tech-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px) {
       nav ul { display:none; position: absolute; right: 18px; top: 62px; background: #fff; padding: 10px; border-radius: 14px; box-shadow: var(--shadow-soft); flex-direction: column; width: 220px; }
@@ -120,6 +133,7 @@
       .menu-toggle { display:block; }
       .product-card img { height: 140px; }
       .tip img { height: 140px; }
+      .tech-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .products-grid, .tips-grid { grid-template-columns: 1fr; }
@@ -163,11 +177,12 @@
   <section id="home" class="hero">
     <div class="container hero-inner">
       <div>
-        <span class="tag eyebrow fade-up">Sustainable • Empowering • Local</span>
+        <span class="tag eyebrow fade-up">Sustainable • Smart • Empowering</span>
         <h1 class="fade-up delay-1">Growing a Greener Future with <em>Farm Langu</em></h1>
-        <p class="fade-up delay-2">We empower farmers with resources, quality inputs, and market access. Join our community committed to sustainable agriculture and prosperous livelihoods.</p>
+        <p class="fade-up delay-2">We empower farmers with resources, quality inputs, smart technology, and market access. Join our community committed to sustainable agriculture and prosperous livelihoods.</p>
         <div class="hero-cta fade-up delay-3">
           <a href="shop.html" class="btn btn-primary"><i class="fa-solid fa-seedling"></i> Shop Now</a>
+          <a href="#smart-farming" class="btn" style="background:#eef6ef;color:var(--green-600)"><i class="fa-solid fa-microchip"></i> Smart Farming</a>
           <a href="farmers.html" class="btn" style="background:#eef6ef;color:var(--green-600)"><i class="fa-solid fa-user-plus"></i> Sell Your Products</a>
         </div>
       </div>
@@ -200,6 +215,77 @@
             <p>We measure success by livelihoods improved, soil health restored, and communities empowered.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Smart Farming Technology -->
+  <section id="smart-farming" class="smart-farming">
+    <div class="container">
+      <h2 class="fade-up">Smart Farming Technology</h2>
+      <p class="lead fade-up delay-1">Revolutionize your farming with cutting-edge technology for irrigation, monitoring, spraying, and harvesting. Increase yields while reducing costs and labor.</p>
+
+      <div class="tech-grid fade-up delay-2" role="list">
+        <!-- Smart Irrigation -->
+        <article class="tech-card" role="listitem">
+          <i class="fa-solid fa-tint"></i>
+          <h3>Smart Irrigation</h3>
+          <p>Automated watering systems with soil moisture sensors and weather integration.</p>
+          <ul class="tech-features">
+            <li>Soil moisture monitoring</li>
+            <li>Weather-based scheduling</li>
+            <li>Water usage optimization</li>
+            <li>Mobile app control</li>
+          </ul>
+          <div class="price" style="color: var(--green-600); font-weight: 700; margin-top: 8px;">From KES 15,000</div>
+        </article>
+
+        <!-- Crop Monitoring -->
+        <article class="tech-card" role="listitem">
+          <i class="fa-solid fa-chart-line"></i>
+          <h3>Crop Monitoring</h3>
+          <p>IoT sensors and drones for real-time crop health and growth tracking.</p>
+          <ul class="tech-features">
+            <li>Plant health sensors</li>
+            <li>Growth stage tracking</li>
+            <li>Disease early detection</li>
+            <li>Yield prediction</li>
+          </ul>
+          <div class="price" style="color: var(--green-600); font-weight: 700; margin-top: 8px;">From KES 25,000</div>
+        </article>
+
+        <!-- Precision Spraying -->
+        <article class="tech-card" role="listitem">
+          <i class="fa-solid fa-spray-can"></i>
+          <h3>Precision Spraying</h3>
+          <p>Targeted application of fertilizers and pesticides using smart spraying systems.</p>
+          <ul class="tech-features">
+            <li>GPS-guided spraying</li>
+            <li>Variable rate application</li>
+            <li>Drift reduction technology</li>
+            <li>Chemical usage tracking</li>
+          </ul>
+          <div class="price" style="color: var(--green-600); font-weight: 700; margin-top: 8px;">From KES 35,000</div>
+        </article>
+
+        <!-- Harvest Management -->
+        <article class="tech-card" role="listitem">
+          <i class="fa-solid fa-warehouse"></i>
+          <h3>Harvest Management</h3>
+          <p>Digital tools for harvest planning, quality control, and post-harvest handling.</p>
+          <ul class="tech-features">
+            <li>Harvest timing optimization</li>
+            <li>Quality assessment tools</li>
+            <li>Storage monitoring</li>
+            <li>Market price tracking</li>
+          </ul>
+          <div class="price" style="color: var(--green-600); font-weight: 700; margin-top: 8px;">From KES 20,000</div>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="shop.html?category=technology" class="btn btn-primary"><i class="fa-solid fa-shopping-cart"></i> Shop Smart Farming Tech</a>
+        <a href="#contact" class="btn btn-secondary" style="margin-left: 1rem;"><i class="fa-solid fa-phone"></i> Get Consultation</a>
       </div>
     </div>
   </section>
